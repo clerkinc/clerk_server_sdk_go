@@ -10,8 +10,8 @@ type ClientResponse struct {
 	LastActiveSessionID *string    `json:"last_active_session_id"`
 	SessionIDs          []string   `json:"session_ids"`
 	Sessions            []*Session `json:"sessions"`
-	SignInAttemptID     *string    `json:"sign_in_attempt_id"`
-	SignUpAttemptID     *string    `json:"sign_up_attempt_id"`
+	SignInID            *string    `json:"sign_in_id"`
+	SignUpID            *string    `json:"sign_up_id"`
 	Ended               bool       `json:"ended"`
 }
 
