@@ -48,32 +48,14 @@ func (c *Client) Create(ctx context.Context, params *CreateParams) (*clerk.Organ
 	return organization, err
 }
 
-type GetParams struct {
-	clerk.APIParams
-	IncludeMembersCount                     *bool `json:"include_members_count,omitempty"`
-	IncludeHasMemberWithElevatedPermissions *bool `json:"include_has_member_with_elevated_permissions,omitempty"`
-}
-
-func (params *GetParams) ToQuery() url.Values {
-	q := url.Values{}
-	if params.IncludeMembersCount != nil {
-		q.Set("include_members_count", strconv.FormatBool(*params.IncludeMembersCount))
-	}
-	if params.IncludeHasMemberWithElevatedPermissions != nil {
-		q.Set("include_has_member_with_elevated_permissions", strconv.FormatBool(*params.IncludeHasMemberWithElevatedPermissions))
-	}
-	return q
-}
-
 // Get retrieves details for an organization.
 // The organization can be fetched by either the ID or its slug.
-func (c *Client) Get(ctx context.Context, idOrSlug string, params *GetParams) (*clerk.Organization, error) {
+func (c *Client) Get(ctx context.Context, idOrSlug string) (*clerk.Organization, error) {
 	path, err := clerk.JoinPath(path, idOrSlug)
 	if err != nil {
 		return nil, err
 	}
 	req := clerk.NewAPIRequest(http.MethodGet, path)
-	req.SetParams(params)
 	organization := &clerk.Organization{}
 	err = c.Backend.Call(ctx, req, organization)
 	return organization, err
@@ -203,11 +185,12 @@ func (c *Client) DeleteLogo(ctx context.Context, id string) (*clerk.Organization
 type ListParams struct {
 	clerk.APIParams
 	clerk.ListParams
-	IncludeMembersCount                     *bool    `json:"include_members_count,omitempty"`
-	IncludeHasMemberWithElevatedPermissions *bool    `json:"include_has_member_with_elevated_permissions,omitempty"`
-	OrderBy                                 *string  `json:"order_by,omitempty"`
-	Query                                   *string  `json:"query,omitempty"`
-	UserIDs                                 []string `json:"user_id,omitempty"`
+	IncludeMembersCount                         *bool    `json:"include_members_count,omitempty"`
+	IncludeMissingMemberWithElevatedPermissions *bool    `json:"include_missing_member_with_elevated_permissions,omitempty"`
+	OrderBy                                     *string  `json:"order_by,omitempty"`
+	Query                                       *string  `json:"query,omitempty"`
+	UserIDs                                     []string `json:"user_id,omitempty"`
+	FilterBy                                    []string `json:"filter_by,omitempty"`
 }
 
 // ToQuery returns query string values from the params.
@@ -216,8 +199,8 @@ func (params *ListParams) ToQuery() url.Values {
 	if params.IncludeMembersCount != nil {
 		q.Set("include_members_count", strconv.FormatBool(*params.IncludeMembersCount))
 	}
-	if params.IncludeHasMemberWithElevatedPermissions != nil {
-		q.Set("include_has_member_with_elevated_permissions", strconv.FormatBool(*params.IncludeHasMemberWithElevatedPermissions))
+	if params.IncludeMissingMemberWithElevatedPermissions != nil {
+		q.Set("include_missing_member_with_elevated_permissions", strconv.FormatBool(*params.IncludeMissingMemberWithElevatedPermissions))
 	}
 	if params.OrderBy != nil {
 		q.Set("order_by", *params.OrderBy)
@@ -227,6 +210,12 @@ func (params *ListParams) ToQuery() url.Values {
 	}
 	if params.UserIDs != nil {
 		q["user_id"] = params.UserIDs
+	}
+	if params.UserIDs != nil {
+		q["user_id"] = params.UserIDs
+	}
+	if params.FilterBy != nil {
+		q["filter_by"] = params.FilterBy
 	}
 	return q
 }
