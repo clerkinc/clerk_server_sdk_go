@@ -209,14 +209,17 @@ func (c *Client) Delete(ctx context.Context, id string) (*clerk.DeletedResource,
 type ListParams struct {
 	clerk.APIParams
 	clerk.ListParams
-	OrderBy        *string  `json:"order_by,omitempty"`
-	Query          *string  `json:"query,omitempty"`
-	EmailAddresses []string `json:"email_address,omitempty"`
-	ExternalIDs    []string `json:"external_id,omitempty"`
-	PhoneNumbers   []string `json:"phone_number,omitempty"`
-	Web3Wallets    []string `json:"web3_wallet,omitempty"`
-	Usernames      []string `json:"username,omitempty"`
-	UserIDs        []string `json:"user_id,omitempty"`
+	OrderBy           *string  `json:"order_by,omitempty"`
+	Query             *string  `json:"query,omitempty"`
+	EmailAddressQuery *string  `json:"email_address_query,omitempty"`
+	PhoneNumberQuery  *string  `json:"phone_number_query,omitempty"`
+	UsernameQuery     *string  `json:"username_query,omitempty"`
+	EmailAddresses    []string `json:"email_address,omitempty"`
+	ExternalIDs       []string `json:"external_id,omitempty"`
+	PhoneNumbers      []string `json:"phone_number,omitempty"`
+	Web3Wallets       []string `json:"web3_wallet,omitempty"`
+	Usernames         []string `json:"username,omitempty"`
+	UserIDs           []string `json:"user_id,omitempty"`
 	// OrganizationIDs filters users that have memberships to the given organizations. For each organization ID, the
 	// + and - can be prepended to the ID, which denote whether the respective organization should be included or
 	// excluded from the result set. Accepts up to 100 organization IDs.
@@ -232,6 +235,15 @@ func (params *ListParams) ToQuery() url.Values {
 	}
 	if params.Query != nil {
 		q.Add("query", *params.Query)
+	}
+	if params.EmailAddressQuery != nil {
+		q.Add("email_address_query", *params.EmailAddressQuery)
+	}
+	if params.PhoneNumberQuery != nil {
+		q.Add("phone_number_query", *params.PhoneNumberQuery)
+	}
+	if params.UsernameQuery != nil {
+		q.Add("username_query", *params.UsernameQuery)
 	}
 	for _, v := range params.EmailAddresses {
 		q.Add("email_address", v)
