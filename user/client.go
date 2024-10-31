@@ -223,8 +223,14 @@ type ListParams struct {
 	// OrganizationIDs filters users that have memberships to the given organizations. For each organization ID, the
 	// + and - can be prepended to the ID, which denote whether the respective organization should be included or
 	// excluded from the result set. Accepts up to 100 organization IDs.
-	OrganizationIDs   []string `json:"organization_id,omitempty"`
-	LastActiveAtSince *int64   `json:"last_active_at_since,omitempty"`
+	OrganizationIDs []string `json:"organization_id,omitempty"`
+	// Deprecated: Prefer using the LastActiveAtAfter parameter, which has
+	// identical functionality. This parameter is just being renamed.
+	LastActiveAtSince  *int64 `json:"last_active_at_since,omitempty"`
+	CreatedAtBefore    *int64 `json:"created_at_before,omitempty"`
+	CreatedAtAfter     *int64 `json:"created_at_after,omitempty"`
+	LastActiveAtBefore *int64 `json:"last_active_at_before,omitempty"`
+	LastActiveAtAfter  *int64 `json:"last_active_at_after,omitempty"`
 }
 
 // ToQuery returns url.Values from the params.
@@ -268,6 +274,18 @@ func (params *ListParams) ToQuery() url.Values {
 	}
 	if params.LastActiveAtSince != nil {
 		q.Add("last_active_at_since", strconv.FormatInt(*params.LastActiveAtSince, 10))
+	}
+	if params.CreatedAtBefore != nil {
+		q.Add("created_at_before", strconv.FormatInt(*params.CreatedAtBefore, 10))
+	}
+	if params.CreatedAtAfter != nil {
+		q.Add("created_at_after", strconv.FormatInt(*params.CreatedAtAfter, 10))
+	}
+	if params.LastActiveAtBefore != nil {
+		q.Add("last_active_at_before", strconv.FormatInt(*params.LastActiveAtBefore, 10))
+	}
+	if params.LastActiveAtAfter != nil {
+		q.Add("last_active_at_after", strconv.FormatInt(*params.LastActiveAtAfter, 10))
 	}
 	return q
 }
