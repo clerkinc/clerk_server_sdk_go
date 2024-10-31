@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1
+
+- Add `EmailAddressQuery`, `PhoneNumberQuery` and `UsernameQuery` to `user.ListParams`.
+
 ## 2.1.0
 
 - Add support for sign in tokens API operations.
@@ -15,6 +19,7 @@
 ## 2.0.9
 
 ## 2.0.4
+
 - Add `IgnoreDotsForGmailAddresses` field to `InstanceRestrictions` and `instancesettings.UpdateRestrictionsParams` (#293).
 
 ## 2.0.0
