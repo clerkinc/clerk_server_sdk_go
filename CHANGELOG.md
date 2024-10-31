@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.1.1
+## Next release
 
 - Add `EmailAddressQuery`, `PhoneNumberQuery` and `UsernameQuery` to `user.ListParams`.
 
