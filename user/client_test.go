@@ -47,12 +47,16 @@ func TestUserClientList_Request(t *testing.T) {
 			T:      t,
 			Method: http.MethodGet,
 			Query: &url.Values{
-				"limit":               []string{"1"},
-				"offset":              []string{"2"},
-				"order_by":            []string{"-created_at"},
-				"email_address":       []string{"foo@bar.com", "baz@bar.com"},
-				"organization_id":     []string{"org_123", "org_456"},
-				"email_address_query": []string{"@bar.com"},
+				"limit":                 []string{"1"},
+				"offset":                []string{"2"},
+				"order_by":              []string{"-created_at"},
+				"email_address":         []string{"foo@bar.com", "baz@bar.com"},
+				"organization_id":       []string{"org_123", "org_456"},
+				"email_address_query":   []string{"@bar.com"},
+				"created_at_before":     []string{"1730333164378"},
+				"created_at_after":      []string{"1730333164378"},
+				"last_active_at_before": []string{"1730333164378"},
+				"last_active_at_after":  []string{"1730333164378"},
 			},
 		},
 	}
@@ -65,6 +69,10 @@ func TestUserClientList_Request(t *testing.T) {
 	}
 	params.Limit = clerk.Int64(1)
 	params.Offset = clerk.Int64(2)
+	params.CreatedAtBefore = clerk.Int64(1730333164378)
+	params.CreatedAtAfter = clerk.Int64(1730333164378)
+	params.LastActiveAtBefore = clerk.Int64(1730333164378)
+	params.LastActiveAtAfter = clerk.Int64(1730333164378)
 	_, err := client.List(context.Background(), params)
 	require.NoError(t, err)
 }
