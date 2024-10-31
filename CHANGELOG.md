@@ -2,6 +2,8 @@
 
 ## Next release
 
+## 2.1.1
+
 - Add `EmailAddressQuery`, `PhoneNumberQuery` and `UsernameQuery` to `user.ListParams`.
 - Add support for `missing_member_with_elevated_permissions` checks to the `organization.List` method.
 
