@@ -53,6 +53,7 @@ func TestUserClientList_Request(t *testing.T) {
 				"email_address":         []string{"foo@bar.com", "baz@bar.com"},
 				"organization_id":       []string{"org_123", "org_456"},
 				"email_address_query":   []string{"@bar.com"},
+				"name_query":            []string{"foobar"},
 				"created_at_before":     []string{"1730333164378"},
 				"created_at_after":      []string{"1730333164378"},
 				"last_active_at_before": []string{"1730333164378"},
@@ -66,6 +67,7 @@ func TestUserClientList_Request(t *testing.T) {
 		OrderBy:           clerk.String("-created_at"),
 		OrganizationIDs:   []string{"org_123", "org_456"},
 		EmailAddressQuery: clerk.String("@bar.com"),
+		NameQuery:         clerk.String("foobar"),
 	}
 	params.Limit = clerk.Int64(1)
 	params.Offset = clerk.Int64(2)
