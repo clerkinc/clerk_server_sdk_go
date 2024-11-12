@@ -2,6 +2,8 @@
 
 ## Next release
 
+- Add `BulkCreate` method for bulk invitation creation.
+
 ## 2.1.1
 
 - Add `EmailAddressQuery`, `PhoneNumberQuery` and `UsernameQuery` to `user.ListParams`.
