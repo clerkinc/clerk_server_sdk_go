@@ -214,6 +214,7 @@ type ListParams struct {
 	EmailAddressQuery *string  `json:"email_address_query,omitempty"`
 	PhoneNumberQuery  *string  `json:"phone_number_query,omitempty"`
 	UsernameQuery     *string  `json:"username_query,omitempty"`
+	NameQuery         *string  `json:"name_query,omitempty"`
 	EmailAddresses    []string `json:"email_address,omitempty"`
 	ExternalIDs       []string `json:"external_id,omitempty"`
 	PhoneNumbers      []string `json:"phone_number,omitempty"`
@@ -250,6 +251,9 @@ func (params *ListParams) ToQuery() url.Values {
 	}
 	if params.UsernameQuery != nil {
 		q.Add("username_query", *params.UsernameQuery)
+	}
+	if params.NameQuery != nil {
+		q.Add("name_query", *params.NameQuery)
 	}
 	for _, v := range params.EmailAddresses {
 		q.Add("email_address", v)
