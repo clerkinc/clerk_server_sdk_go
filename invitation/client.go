@@ -76,6 +76,42 @@ func (c *Client) Create(ctx context.Context, params *CreateParams) (*clerk.Invit
 	return invitation, err
 }
 
+type BulkCreateParams struct {
+	clerk.APIParams
+	Invitations []*CreateParams
+}
+
+func (b BulkCreateParams) MarshalJSON() ([]byte, error) {
+	return json.Marshal(b.Invitations)
+}
+
+type BulkCreateResponse struct {
+	clerk.APIResource
+	Invitations []*clerk.Invitation
+}
+
+func (b *BulkCreateResponse) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &b.Invitations)
+}
+
+// BulkCreate creates multiple invitations.
+func (c *Client) BulkCreate(ctx context.Context, params *BulkCreateParams) (*clerk.InvitationList, error) {
+	req := clerk.NewAPIRequest(http.MethodPost, fmt.Sprintf("%s/bulk", path))
+	req.SetParams(params)
+
+	res := &BulkCreateResponse{}
+	err := c.Backend.Call(ctx, req, res)
+	if err != nil {
+		return nil, err
+	}
+
+	return &clerk.InvitationList{
+		APIResource: res.APIResource,
+		Invitations: res.Invitations,
+		TotalCount:  int64(len(res.Invitations)),
+	}, nil
+}
+
 // Revoke revokes a pending invitation.
 func (c *Client) Revoke(ctx context.Context, id string) (*clerk.Invitation, error) {
 	path, err := clerk.JoinPath(path, id, "revoke")

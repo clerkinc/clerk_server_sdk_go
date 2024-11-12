@@ -162,6 +162,46 @@ func TestInvitationCreate_Error(t *testing.T) {
 	require.Equal(t, "create-error-code", apiErr.Errors[0].Code)
 }
 
+func TestBulkInvitationCreate(t *testing.T) {
+	emailAddresses := []string{"foo@bar.com", "bar@foo.com"}
+	ids := []string{"inv_123", "inv_456"}
+	invitations := []*clerk.Invitation{
+		{ID: ids[0], EmailAddress: emailAddresses[0]},
+		{ID: ids[1], EmailAddress: emailAddresses[1]},
+	}
+
+	clerk.SetBackend(clerk.NewBackend(&clerk.BackendConfig{
+		HTTPClient: &http.Client{
+			Transport: &clerktest.RoundTripper{
+				T:  t,
+				In: json.RawMessage(fmt.Sprintf(`[{"email_address":"%s"},{"email_address":"%s"}]`, emailAddresses[0], emailAddresses[1])),
+				Out: json.RawMessage(fmt.Sprintf(
+					`[{"id":"%s","email_address":"%s"},{"id":"%s","email_address":"%s"}]`,
+					ids[0], emailAddresses[0], ids[1], emailAddresses[1],
+				)),
+				Method: http.MethodPost,
+				Path:   "/v1/invitations/bulk",
+			},
+		},
+	}))
+
+	params := BulkCreateParams{
+		Invitations: []*CreateParams{
+			{EmailAddress: emailAddresses[0]},
+			{EmailAddress: emailAddresses[1]},
+		},
+	}
+
+	invitationList, err := BulkCreate(context.Background(), &params)
+	require.NoError(t, err)
+	require.Equal(t, int64(len(invitations)), invitationList.TotalCount)
+
+	for i, invitation := range invitationList.Invitations {
+		require.Equal(t, ids[i], invitation.ID)
+		require.Equal(t, emailAddresses[i], invitation.EmailAddress)
+	}
+}
+
 func TestInvitationRevoke(t *testing.T) {
 	id := "inv_123"
 	clerk.SetBackend(clerk.NewBackend(&clerk.BackendConfig{
