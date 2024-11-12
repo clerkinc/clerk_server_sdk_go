@@ -1,6 +1,6 @@
 # Changelog
 
-## Next release
+## 2.2.0
 
 - Add support for bulk invitation creation with the `invitation.BulkCreate` method.
 - Add `NameQuery` to `user.ListParams`.
