@@ -2,7 +2,7 @@
 
 ## Next release
 
-- Add `BulkCreate` method for bulk invitation creation.
+- Add support for bulk invitation creation with the `invitation.BulkCreate` method.
 
 ## 2.1.1
 
