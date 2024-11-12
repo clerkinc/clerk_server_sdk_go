@@ -16,6 +16,11 @@ type Invitation struct {
 	UpdatedAt      int64           `json:"updated_at"`
 }
 
+type Invitations struct {
+	APIResource
+	Invitations []*Invitation `json:"data"`
+}
+
 type InvitationList struct {
 	APIResource
 	Invitations []*Invitation `json:"data"`

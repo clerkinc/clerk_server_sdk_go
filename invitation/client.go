@@ -85,30 +85,29 @@ func (b BulkCreateParams) MarshalJSON() ([]byte, error) {
 	return json.Marshal(b.Invitations)
 }
 
-type BulkCreateResponse struct {
+type bulkCreateResponse struct {
 	clerk.APIResource
 	Invitations []*clerk.Invitation
 }
 
-func (b *BulkCreateResponse) UnmarshalJSON(data []byte) error {
+func (b *bulkCreateResponse) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &b.Invitations)
 }
 
 // BulkCreate creates multiple invitations.
-func (c *Client) BulkCreate(ctx context.Context, params *BulkCreateParams) (*clerk.InvitationList, error) {
+func (c *Client) BulkCreate(ctx context.Context, params *BulkCreateParams) (*clerk.Invitations, error) {
 	req := clerk.NewAPIRequest(http.MethodPost, fmt.Sprintf("%s/bulk", path))
 	req.SetParams(params)
 
-	res := &BulkCreateResponse{}
+	res := &bulkCreateResponse{}
 	err := c.Backend.Call(ctx, req, res)
 	if err != nil {
 		return nil, err
 	}
 
-	return &clerk.InvitationList{
+	return &clerk.Invitations{
 		APIResource: res.APIResource,
 		Invitations: res.Invitations,
-		TotalCount:  int64(len(res.Invitations)),
 	}, nil
 }
 

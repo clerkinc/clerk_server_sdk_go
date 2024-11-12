@@ -192,11 +192,11 @@ func TestBulkInvitationCreate(t *testing.T) {
 		},
 	}
 
-	invitationList, err := BulkCreate(context.Background(), &params)
+	response, err := BulkCreate(context.Background(), &params)
 	require.NoError(t, err)
-	require.Equal(t, int64(len(invitations)), invitationList.TotalCount)
+	require.Len(t, invitations, 2)
 
-	for i, invitation := range invitationList.Invitations {
+	for i, invitation := range response.Invitations {
 		require.Equal(t, ids[i], invitation.ID)
 		require.Equal(t, emailAddresses[i], invitation.EmailAddress)
 	}

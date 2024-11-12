@@ -19,7 +19,7 @@ func Create(ctx context.Context, params *CreateParams) (*clerk.Invitation, error
 }
 
 // BulkCreate creates multiple invitations.
-func BulkCreate(ctx context.Context, params *BulkCreateParams) (*clerk.InvitationList, error) {
+func BulkCreate(ctx context.Context, params *BulkCreateParams) (*clerk.Invitations, error) {
 	return getClient().BulkCreate(ctx, params)
 }
 
