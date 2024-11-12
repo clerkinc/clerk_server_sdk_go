@@ -96,12 +96,16 @@ func (b *bulkCreateResponse) UnmarshalJSON(data []byte) error {
 
 // BulkCreate creates multiple invitations.
 func (c *Client) BulkCreate(ctx context.Context, params *BulkCreateParams) (*clerk.Invitations, error) {
-	req := clerk.NewAPIRequest(http.MethodPost, fmt.Sprintf("%s/bulk", path))
+	path, err := clerk.JoinPath(path, "bulk")
+	if err != nil {
+		return nil, err
+	}
+
+	req := clerk.NewAPIRequest(http.MethodPost, path)
 	req.SetParams(params)
 
 	res := &bulkCreateResponse{}
-	err := c.Backend.Call(ctx, req, res)
-	if err != nil {
+	if err := c.Backend.Call(ctx, req, res); err != nil {
 		return nil, err
 	}
 
