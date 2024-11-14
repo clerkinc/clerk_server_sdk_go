@@ -1,5 +1,7 @@
 # Changelog
 
+## Next release
+
 ## 2.3.0
 
 - Add support for the OAuth Applications API. Added the oauthapplication package for API operations and a clerk.OAuthApplication type.
