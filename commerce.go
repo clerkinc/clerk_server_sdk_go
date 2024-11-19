@@ -4,7 +4,7 @@ import "time"
 
 // CommercePlan represents a subscription plan.
 type CommercePlan struct {
-	ID              string          `json:"id"`
+	APIResource
 	AppID           string          `json:"app_id"`
 	CreatedAt       time.Time       `json:"created_at"`
 	UpdatedAt       time.Time       `json:"updated_at"`
@@ -24,7 +24,7 @@ type CommercePlan struct {
 
 // CommerceProduct represents a product associated with a plan.
 type CommerceProduct struct {
-	ID              string    `json:"id"`
+	APIResource
 	Name            string    `json:"name"`
 	Slug            string    `json:"slug"`
 	CreatedAt       time.Time `json:"created_at"`
@@ -42,7 +42,7 @@ type CommerceProductWithPlans struct {
 
 // CommerceCustomer represents a customer subscribing to a product.
 type CommerceCustomer struct {
-	ID         string    `json:"id"`
+	APIResource
 	AppID      string    `json:"app_id"`
 	CreatedAt  time.Time `json:"created_at"`
 	EntityType string    `json:"entity_type"` // Enum equivalent for CommerceProductSubscriberType
@@ -55,7 +55,7 @@ type CommerceCustomer struct {
 
 // CommerceSubscription represents a subscription.
 type CommerceSubscription struct {
-	ID              string           `json:"id"`
+	APIResource
 	AppID           string           `json:"app_id"`
 	CreatedAt       time.Time        `json:"created_at"`
 	UpdatedAt       time.Time        `json:"updated_at"`
@@ -69,7 +69,7 @@ type CommerceSubscription struct {
 
 // InvoiceSummary is a reduced representation of an invoice.
 type InvoiceSummary struct {
-	ID     string    `json:"id"`
+	APIResource
 	DueAt  time.Time `json:"due_at"`
 	Amount int64     `json:"amount"`
 	Status string    `json:"status"` // Enum equivalent for CommerceInvoiceStatus
@@ -77,7 +77,7 @@ type InvoiceSummary struct {
 
 // CommerceInvoice represents a detailed invoice.
 type CommerceInvoice struct {
-	ID                       string               `json:"id"`
+	APIResource
 	AppID                    string               `json:"app_id"`
 	CreatedAt                time.Time            `json:"created_at"`
 	UpdatedAt                time.Time            `json:"updated_at"`
@@ -90,7 +90,7 @@ type CommerceInvoice struct {
 
 // CommercePaymentAttempt represents a payment attempt for an invoice.
 type CommercePaymentAttempt struct {
-	ID        string           `json:"id"`
+	APIResource
 	AppID     string           `json:"app_id"`
 	CreatedAt time.Time        `json:"created_at"`
 	UpdatedAt time.Time        `json:"updated_at"`
@@ -102,6 +102,7 @@ type CommercePaymentAttempt struct {
 
 // PaginatedList is a generic response for paginated resources.
 type PaginatedList[T any] struct {
+	APIResource
 	Data       []T   `json:"data"`
 	TotalCount int64 `json:"total_count"`
 }
