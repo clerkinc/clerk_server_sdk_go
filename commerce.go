@@ -100,6 +100,23 @@ type CommercePaymentAttempt struct {
 	Amount    int64            `json:"amount"`
 }
 
+// CommerceIntegration represents a response for integration creation.
+type CommerceIntegration struct {
+	APIResource
+	AppID           string    `json:"app_id"`
+	CreatedAt       time.Time `json:"created_at"`
+	UpdatedAt       time.Time `json:"updated_at"`
+	IntegrationID   string    `json:"integration_id"`
+	IntegrationType string    `json:"integration_type"`
+	Status          string    `json:"status"`
+}
+
+// CommerceIntegrationResponse represents the response for integration creation.
+type CommerceIntegrationResponse struct {
+	APIResource
+	URL string `json:"url"`
+}
+
 // PaginatedList is a generic response for paginated resources.
 type PaginatedList[T any] struct {
 	APIResource
@@ -120,4 +137,9 @@ type ListCommerceInvoicesResponse struct {
 // ListCommercePaymentAttemptsResponse represents a paginated list of payment attempts.
 type ListCommercePaymentAttemptsResponse struct {
 	PaginatedList[CommercePaymentAttempt]
+}
+
+// ListCommerceProductsResponse represents a paginated list of products.
+type ListCommerceProductsResponse struct {
+	PaginatedList[CommerceProduct]
 }
