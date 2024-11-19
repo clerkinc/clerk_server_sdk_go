@@ -35,7 +35,7 @@ type User struct {
 	VerificationAttemptsRemaining *int64             `json:"verification_attempts_remaining"`
 	DeleteSelfEnabled             bool               `json:"delete_self_enabled"`
 	CreateOrganizationEnabled     bool               `json:"create_organization_enabled"`
-	CreateOrganizationsLimit      *int32             `json:"create_organizations_limit,omitempty"`
+	CreateOrganizationsLimit      *int               `json:"create_organizations_limit,omitempty"`
 	LastActiveAt                  *int64             `json:"last_active_at"`
 	LegalAcceptedAt               *int64             `json:"legal_accepted_at"`
 	CreatedAt                     int64              `json:"created_at"`
