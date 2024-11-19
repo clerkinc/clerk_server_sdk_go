@@ -32,6 +32,23 @@ func NewClient(config *clerk.ClientConfig) *Client {
 
 // Subscriptions
 
+type ListSubscriptionsByInstanceIDParams struct {
+	clerk.APIParams
+	ID string `json:"-"`
+}
+
+// ListSubscriptionsByInstanceID returns a list of subscriptions for a given instance ID.
+func (c *Client) ListSubscriptionsByInstanceID(ctx context.Context, params *ListSubscriptionsByInstanceIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
+	path, err := clerk.JoinPath(path, subscriptionsPath, params.ID)
+	if err != nil {
+		return nil, err
+	}
+	req := clerk.NewAPIRequest(http.MethodGet, path)
+	resource := &clerk.ListCommerceSubscriptionsResponse{}
+	err = c.Backend.Call(ctx, req, resource)
+	return resource, err
+}
+
 type ListSubscriptionsByUserIDParams struct {
 	clerk.APIParams
 	ID string `json:"-"`
