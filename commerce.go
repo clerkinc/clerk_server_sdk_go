@@ -2,144 +2,267 @@ package clerk
 
 import "time"
 
-// CommercePlan represents a subscription plan.
-type CommercePlan struct {
-	APIResource
-	AppID           string          `json:"app_id"`
-	CreatedAt       time.Time       `json:"created_at"`
-	UpdatedAt       time.Time       `json:"updated_at"`
-	Name            string          `json:"name"`
-	Slug            string          `json:"slug"`
-	ImageURL        string          `json:"image_url"`
-	Description     *string         `json:"description,omitempty"`
-	Product         CommerceProduct `json:"product"`
-	BaseAmount      int64           `json:"base_amount"`
-	IsRecurring     bool            `json:"is_recurring"`
-	IsProrated      bool            `json:"is_prorated"`
-	Period          string          `json:"period"` // Enum equivalent for CommercePlanPeriod
-	Interval        int             `json:"interval"`
-	BillingCycles   *int            `json:"billing_cycles,omitempty"`
-	SubscriberCount int64           `json:"subscriber_count"`
+// --- Product Types ---
+
+type CreateProductParams struct {
+	APIParams
+	InstanceID      *string   `json:"instance_id,omitempty"`
+	Name            *string   `json:"name,omitempty"`
+	Slug            *string   `json:"slug,omitempty"`
+	Currency        *string   `json:"currency,omitempty"`
+	SubscriberType  *[]string `json:"subscriber_type,omitempty"`
+	OwnerEntityType *string   `json:"owner_entity_type,omitempty"`
 }
 
-// CommerceProduct represents a product associated with a plan.
+type UpdateProductParams struct {
+	APIParams
+	ID              *string   `json:"id,omitempty"`
+	Name            *string   `json:"name,omitempty"`
+	Slug            *string   `json:"slug,omitempty"`
+	Currency        *string   `json:"currency,omitempty"`
+	SubscriberType  *[]string `json:"subscriber_type,omitempty"`
+	OwnerEntityType *string   `json:"owner_entity_type,omitempty"`
+}
+
+type GetProductByIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
 type CommerceProduct struct {
 	APIResource
-	Name            string    `json:"name"`
-	Slug            string    `json:"slug"`
-	CreatedAt       time.Time `json:"created_at"`
-	UpdatedAt       time.Time `json:"updated_at"`
-	Currency        string    `json:"currency"`
-	SubscriberType  []string  `json:"subscriber_type"`   // Enum equivalent for CommerceProductSubscriberType
-	OwnerEntityType string    `json:"owner_entity_type"` // Enum equivalent for CommerceProductOwnerEntity
+	Name            *string   `json:"name,omitempty"`
+	Slug            *string   `json:"slug,omitempty"`
+	Currency        *string   `json:"currency,omitempty"`
+	SubscriberType  *[]string `json:"subscriber_type,omitempty"`
+	OwnerEntityType *string   `json:"owner_entity_type,omitempty"`
 }
 
-// CommerceProductWithPlans combines a product and its associated plans.
 type CommerceProductWithPlans struct {
 	CommerceProduct
-	Plans []CommercePlan `json:"plans"`
+	Plans *[]CommercePlan `json:"plans,omitempty"`
 }
 
-// CommerceCustomer represents a customer subscribing to a product.
-type CommerceCustomer struct {
+type ListProductsByInstanceIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
+type ListCommerceProductsResponse struct {
+	APIParams
+	PaginatedList[CommerceProduct]
+}
+
+// --- Plan Types ---
+
+type CreatePlanParams struct {
+	APIParams
+	Name        *string `json:"name,omitempty"`
+	ProductID   *string `json:"product_id,omitempty"`
+	BaseAmount  *int64  `json:"base_amount,omitempty"`
+	IsRecurring *bool   `json:"is_recurring,omitempty"`
+}
+
+type UpdatePlanParams struct {
+	APIParams
+	ID   *string `json:"id,omitempty"`
+	Name *string `json:"name,omitempty"`
+}
+
+type GetPlanByIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
+type CommercePlan struct {
 	APIResource
-	AppID      string    `json:"app_id"`
-	CreatedAt  time.Time `json:"created_at"`
-	EntityType string    `json:"entity_type"` // Enum equivalent for CommerceProductSubscriberType
-	Entity     struct {
-		ID       string  `json:"id"`
-		Name     string  `json:"name"`
-		ImageURL *string `json:"image_url,omitempty"`
-	} `json:"entity"`
+	Name            *string `json:"name,omitempty"`
+	ProductID       *string `json:"product_id,omitempty"`
+	BaseAmount      *int64  `json:"base_amount,omitempty"`
+	IsRecurring     *bool   `json:"is_recurring,omitempty"`
+	Period          *string `json:"period,omitempty"`
+	Interval        *int    `json:"interval,omitempty"`
+	BillingCycles   *int    `json:"billing_cycles,omitempty"`
+	SubscriberCount *int64  `json:"subscriber_count,omitempty"`
 }
 
-// CommerceSubscription represents a subscription.
-type CommerceSubscription struct {
-	APIResource
-	AppID           string           `json:"app_id"`
-	CreatedAt       time.Time        `json:"created_at"`
-	UpdatedAt       time.Time        `json:"updated_at"`
-	Customer        CommerceCustomer `json:"customer"`
-	Plan            CommercePlan     `json:"plan"`
-	Status          string           `json:"status"` // Enum equivalent for CommerceSubscriptionStatus
-	ToBeCancelledAt *time.Time       `json:"to_be_cancelled_at,omitempty"`
-	LastInvoice     *InvoiceSummary  `json:"last_invoice,omitempty"`
-	NextInvoice     *InvoiceSummary  `json:"next_invoice,omitempty"`
+type ListPlansByInstanceIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
 }
 
-// InvoiceSummary is a reduced representation of an invoice.
-type InvoiceSummary struct {
-	APIResource
-	DueAt  time.Time `json:"due_at"`
-	Amount int64     `json:"amount"`
-	Status string    `json:"status"` // Enum equivalent for CommerceInvoiceStatus
+// --- Integration Types ---
+
+type CreateIntegrationParams struct {
+	APIParams
+	InstanceID *string `json:"instance_id,omitempty"`
+	Email      *string `json:"email,omitempty"`
+	Type       *string `json:"type,omitempty"`
 }
 
-// CommerceInvoice represents a detailed invoice.
-type CommerceInvoice struct {
-	APIResource
-	AppID                    string               `json:"app_id"`
-	CreatedAt                time.Time            `json:"created_at"`
-	UpdatedAt                time.Time            `json:"updated_at"`
-	Subscription             CommerceSubscription `json:"subscription"`
-	Amount                   int64                `json:"amount"`
-	Status                   string               `json:"status"` // Enum equivalent for CommerceInvoiceStatus
-	DueAt                    time.Time            `json:"due_at"`
-	FinalizingPaymentAttempt string               `json:"finalizing_payment_attempt_id"`
+type UpdateIntegrationParams struct {
+	APIParams
+	CommerceIntegrationID *string `json:"id,omitempty"`
+	Status                *string `json:"status,omitempty"`
 }
 
-// CommercePaymentAttempt represents a payment attempt for an invoice.
-type CommercePaymentAttempt struct {
-	APIResource
-	AppID     string           `json:"app_id"`
-	CreatedAt time.Time        `json:"created_at"`
-	UpdatedAt time.Time        `json:"updated_at"`
-	Customer  CommerceCustomer `json:"customer"`
-	Invoice   CommerceInvoice  `json:"invoice"`
-	Status    string           `json:"status"` // Enum equivalent for CommercePaymentAttemptStatus
-	Amount    int64            `json:"amount"`
+type GetIntegrationParams struct {
+	APIParams
+	IntegrationID *string `json:"id,omitempty"`
 }
 
-// CommerceIntegration represents a response for integration creation.
 type CommerceIntegration struct {
 	APIResource
-	AppID           string    `json:"app_id"`
-	CreatedAt       time.Time `json:"created_at"`
-	UpdatedAt       time.Time `json:"updated_at"`
-	IntegrationID   string    `json:"integration_id"`
-	IntegrationType string    `json:"integration_type"`
-	Status          string    `json:"status"`
+	IntegrationID   *string `json:"integration_id,omitempty"`
+	IntegrationType *string `json:"integration_type,omitempty"`
+	Status          *string `json:"status,omitempty"`
 }
 
-// CommerceIntegrationResponse represents the response for integration creation.
 type CommerceIntegrationResponse struct {
 	APIResource
-	URL string `json:"url"`
+	URL *string `json:"url,omitempty"`
 }
 
-// PaginatedList is a generic response for paginated resources.
-type PaginatedList[T any] struct {
+type ListCommerceIntegrationsResponse struct {
+	APIParams
+	PaginatedList[CommerceIntegration]
+}
+
+type ListIntegrationsByInstanceIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
+// --- Subscription Types ---
+
+type CreateSubscriptionParams struct {
+	APIParams
+	CustomerID *string `json:"customer_id,omitempty"`
+	PlanID     *string `json:"plan_id,omitempty"`
+	Status     *string `json:"status,omitempty"`
+}
+
+type UpdateSubscriptionParams struct {
+	APIParams
+	ID     *string `json:"id,omitempty"`
+	Status *string `json:"status,omitempty"`
+}
+
+type GetSubscriptionByIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
+type ListSubscriptionsByInstanceIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
+type ListSubscriptionsByUserIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
+type CommerceSubscription struct {
 	APIResource
-	Data       []T   `json:"data"`
-	TotalCount int64 `json:"total_count"`
+	Customer *CommerceCustomer `json:"customer,omitempty"`
+	Plan     *CommercePlan     `json:"plan,omitempty"`
+	Status   *string           `json:"status,omitempty"`
 }
 
-// ListCommerceSubscriptionsResponse represents a paginated list of subscriptions.
 type ListCommerceSubscriptionsResponse struct {
+	APIParams
 	PaginatedList[CommerceSubscription]
 }
 
-// ListCommerceInvoicesResponse represents a paginated list of invoices.
+// --- Invoice Types ---
+
+type CreateInvoiceParams struct {
+	APIParams
+	SubscriptionID *string `json:"subscription_id,omitempty"`
+	Amount         *int64  `json:"amount,omitempty"`
+	DueAt          *string `json:"due_at,omitempty"`
+}
+
+type UpdateInvoiceParams struct {
+	APIParams
+	ID     *string `json:"id,omitempty"`
+	Status *string `json:"status,omitempty"`
+}
+
+type GetInvoiceByIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
+type ListInvoicesByInstanceIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
+type CommerceInvoice struct {
+	APIResource
+	Subscription *CommerceSubscription `json:"subscription,omitempty"`
+	Amount       *int64                `json:"amount,omitempty"`
+	Status       *string               `json:"status,omitempty"`
+	DueAt        *time.Time            `json:"due_at,omitempty"`
+}
+
 type ListCommerceInvoicesResponse struct {
+	APIParams
 	PaginatedList[CommerceInvoice]
 }
 
-// ListCommercePaymentAttemptsResponse represents a paginated list of payment attempts.
+// --- Payment Attempt Types ---
+
+type CreatePaymentAttemptParams struct {
+	APIParams
+	InvoiceID *string `json:"invoice_id,omitempty"`
+	Amount    *int64  `json:"amount,omitempty"`
+	Status    *string `json:"status,omitempty"`
+}
+
+type UpdatePaymentAttemptParams struct {
+	APIParams
+	ID     *string `json:"id,omitempty"`
+	Status *string `json:"status,omitempty"`
+}
+
+type GetPaymentAttemptByIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
+type ListPaymentAttemptsByInstanceIDParams struct {
+	APIParams
+	ID *string `json:"id,omitempty"`
+}
+
+type CommercePaymentAttempt struct {
+	APIResource
+	Invoice *CommerceInvoice `json:"invoice,omitempty"`
+	Amount  *int64           `json:"amount,omitempty"`
+	Status  *string          `json:"status,omitempty"`
+}
+
 type ListCommercePaymentAttemptsResponse struct {
+	APIParams
 	PaginatedList[CommercePaymentAttempt]
 }
 
-// ListCommerceProductsResponse represents a paginated list of products.
-type ListCommerceProductsResponse struct {
-	PaginatedList[CommerceProduct]
+// --- Customer Types ---
+
+type CommerceCustomer struct {
+	Entity *struct {
+		ID   *string `json:"id,omitempty"`
+		Name *string `json:"name,omitempty"`
+	} `json:"entity,omitempty"`
+}
+
+// --- Pagination Types ---
+
+type PaginatedList[T any] struct {
+	APIResource
+	Data       *[]T   `json:"data,omitempty"`
+	TotalCount *int64 `json:"total_count,omitempty"`
 }
