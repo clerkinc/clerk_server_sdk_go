@@ -9,8 +9,68 @@ import (
 )
 
 // ListSubscriptionsByInstanceID returns a list of subscriptions for a given instance ID.
-func ListSubscriptionsByInstanceID(ctx context.Context, params *ListSubscriptionsByInstanceIDParams) (*clerk.SubscriptionList, error) {
+func ListSubscriptionsByInstanceID(ctx context.Context, params *ListSubscriptionsByInstanceIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
 	return getClient().ListSubscriptionsByInstanceID(ctx, params)
+}
+
+// ListSubscriptionsByUserID returns a list of subscriptions for a given user ID.
+func ListSubscriptionsByUserID(ctx context.Context, params *ListSubscriptionsByUserIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
+	return getClient().ListSubscriptionsByUserID(ctx, params)
+}
+
+// GetSubscriptionByID retrieves a subscription by its ID.
+func GetSubscriptionByID(ctx context.Context, params *GetSubscriptionByIDParams) (*clerk.CommerceSubscription, error) {
+	return getClient().GetSubscriptionByID(ctx, params)
+}
+
+// ListInvoicesByInstanceID returns a list of invoices for a given instance ID.
+func ListInvoicesByInstanceID(ctx context.Context, params *ListInvoicesByInstanceIDParams) (*clerk.ListCommerceInvoicesResponse, error) {
+	return getClient().ListInvoicesByInstanceID(ctx, params)
+}
+
+// GetInvoiceByID retrieves an invoice by its ID.
+func GetInvoiceByID(ctx context.Context, params *GetInvoiceByIDParams) (*clerk.CommerceInvoice, error) {
+	return getClient().GetInvoiceByID(ctx, params)
+}
+
+// ListPaymentAttemptsByInstanceID returns a list of payment attempts for a given instance ID.
+func ListPaymentAttemptsByInstanceID(ctx context.Context, params *ListPaymentAttemptsByInstanceIDParams) (*clerk.ListCommercePaymentAttemptsResponse, error) {
+	return getClient().ListPaymentAttemptsByInstanceID(ctx, params)
+}
+
+// GetPaymentAttemptByID retrieves a payment attempt by its ID.
+func GetPaymentAttemptByID(ctx context.Context, params *GetPaymentAttemptByIDParams) (*clerk.CommercePaymentAttempt, error) {
+	return getClient().GetPaymentAttemptByID(ctx, params)
+}
+
+// ListProductsByInstanceID returns a list of products for a given instance ID.
+func ListProductsByInstanceID(ctx context.Context, params *ListProductsByInstanceIDParams) (*clerk.ListCommerceProductsResponse, error) {
+	return getClient().ListProductsByInstanceID(ctx, params)
+}
+
+// GetPlanByID retrieves a plan by its ID.
+func GetPlanByID(ctx context.Context, params *GetPlanByIDParams) (*clerk.CommercePlan, error) {
+	return getClient().GetPlanByID(ctx, params)
+}
+
+// CreateIntegration creates a new integration for the specified instance.
+func CreateIntegration(ctx context.Context, params *CreateIntegrationParams) (*clerk.CommerceIntegrationResponse, error) {
+	return getClient().CreateIntegration(ctx, params)
+}
+
+// UpdateCommerceIntegration updates an existing commerce integration's status.
+func UpdateIntegration(ctx context.Context, params *UpdateIntegrationParams) (*clerk.CommerceIntegrationResponse, error) {
+	return getClient().UpdateIntegration(ctx, params)
+}
+
+// GetIntegration retrieves a specific integration by its ID.
+func GetIntegration(ctx context.Context, params *GetIntegrationParams) (*clerk.CommerceIntegrationResponse, error) {
+	return getClient().GetIntegration(ctx, params)
+}
+
+// GetProductByID retrieves an Product by its ID.
+func GetProductByID(ctx context.Context, params *GetProductByIDParams) (*clerk.CommerceProduct, error) {
+	return getClient().GetProductByID(ctx, params)
 }
 
 func getClient() *Client {

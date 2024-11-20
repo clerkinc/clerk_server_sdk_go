@@ -8,6 +8,8 @@ import (
 	"github.com/clerk/clerk-sdk-go/v2"
 )
 
+//go:generate go run ../cmd/gen/main.go
+
 // Paths
 const (
 	path                = "/commerce"
@@ -209,8 +211,65 @@ func (c *Client) CreateIntegration(ctx context.Context, params *CreateIntegratio
 		return nil, err
 	}
 	req := clerk.NewAPIRequest(http.MethodPost, path)
-	req.Body = params
+	req.SetParams(params)
 	resource := &clerk.CommerceIntegrationResponse{}
+	err = c.Backend.Call(ctx, req, resource)
+	return resource, err
+}
+
+// UpdateCommerceIntegrationParams represents the parameters for updating a commerce integration.
+type UpdateIntegrationParams struct {
+	clerk.APIParams
+	CommerceIntegrationID string `json:"-"`
+	Status                string `json:"status"`
+}
+
+// UpdateCommerceIntegration updates an existing commerce integration's status.
+func (c *Client) UpdateIntegration(ctx context.Context, params *UpdateIntegrationParams) (*clerk.CommerceIntegrationResponse, error) {
+	path, err := clerk.JoinPath(path, integrationsPath, params.CommerceIntegrationID)
+	if err != nil {
+		return nil, err
+	}
+
+	req := clerk.NewAPIRequest(http.MethodPut, path)
+	req.SetParams(params)
+	resource := &clerk.CommerceIntegrationResponse{}
+	err = c.Backend.Call(ctx, req, resource)
+	return resource, err
+}
+
+// GetIntegrationParams represents the parameters for retrieving a commerce integration by ID.
+type GetIntegrationParams struct {
+	clerk.APIParams
+	IntegrationID string `json:"-"`
+}
+
+// GetIntegration retrieves a specific integration by its ID.
+func (c *Client) GetIntegration(ctx context.Context, params *GetIntegrationParams) (*clerk.CommerceIntegrationResponse, error) {
+	path, err := clerk.JoinPath(path, integrationsPath, params.IntegrationID)
+	if err != nil {
+		return nil, err
+	}
+
+	req := clerk.NewAPIRequest(http.MethodGet, path)
+	resource := &clerk.CommerceIntegrationResponse{}
+	err = c.Backend.Call(ctx, req, resource)
+	return resource, err
+}
+
+type GetProductByIDParams struct {
+	clerk.APIParams
+	ID string `json:"-"`
+}
+
+// GetProductByID retrieves an Product by its ID.
+func (c *Client) GetProductByID(ctx context.Context, params *GetProductByIDParams) (*clerk.CommerceProduct, error) {
+	path, err := clerk.JoinPath(path, productsPath, params.ID)
+	if err != nil {
+		return nil, err
+	}
+	req := clerk.NewAPIRequest(http.MethodGet, path)
+	resource := &clerk.CommerceProduct{}
 	err = c.Backend.Call(ctx, req, resource)
 	return resource, err
 }
