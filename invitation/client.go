@@ -65,6 +65,7 @@ type CreateParams struct {
 	Notify         *bool            `json:"notify,omitempty"`
 	IgnoreExisting *bool            `json:"ignore_existing,omitempty"`
 	ExpiresInDays  *int64           `json:"expires_in_days,omitempty"`
+	TemplateSlug   *string          `json:"template_slug,omitempty"`
 }
 
 // Create adds a new identifier to the allowlist.
