@@ -2,6 +2,7 @@ package commerce
 
 import (
 	"context"
+	"log"
 	"net/http"
 
 	"github.com/clerk/clerk-sdk-go/v2"
@@ -52,7 +53,54 @@ func (c *Client) ListSubscriptionsByInstanceID(ctx context.Context, params *cler
 	req := clerk.NewAPIRequest(http.MethodGet, reqPath)
 	resource := &clerk.ListCommerceSubscriptionsResponse{}
 	err = c.Backend.Call(ctx, req, resource)
-	return resource, err
+	log.Default().Println("resource", resource)
+	// Fake data for testing
+	fakeSubscriptions := []clerk.CommerceSubscription{
+		{
+			APIResource: clerk.APIResource{}, // Fill in with appropriate resource metadata if needed
+			Customer: &clerk.CommerceCustomer{
+				Entity: &struct {
+					ID   *string `json:"id,omitempty"`
+					Name *string `json:"name,omitempty"`
+				}{
+					ID:   clerk.String("customer_1"),
+					Name: clerk.String("John Doe"),
+				},
+			},
+			Plan: &clerk.CommercePlan{
+				Name:        clerk.String("Basic Plan"),
+				BaseAmount:  clerk.Int64(1000),
+				IsRecurring: clerk.Bool(true),
+			},
+			Status: clerk.String("active"),
+		},
+		{
+			APIResource: clerk.APIResource{},
+			Customer: &clerk.CommerceCustomer{
+				Entity: &struct {
+					ID   *string `json:"id,omitempty"`
+					Name *string `json:"name,omitempty"`
+				}{
+					ID:   clerk.String("customer_2"),
+					Name: clerk.String("Jane Smith"),
+				},
+			},
+			Plan: &clerk.CommercePlan{
+				Name:        clerk.String("Pro Plan"),
+				BaseAmount:  clerk.Int64(2000),
+				IsRecurring: clerk.Bool(true),
+			},
+			Status: clerk.String("inactive"),
+		},
+	}
+
+	return &clerk.ListCommerceSubscriptionsResponse{
+		PaginatedList: clerk.PaginatedList[clerk.CommerceSubscription]{
+			Data:       &fakeSubscriptions,
+			TotalCount: clerk.Int64(int64(len(fakeSubscriptions))),
+		},
+	}, nil
+	// return resource, err
 }
 
 func (c *Client) ListSubscriptionsByUserID(ctx context.Context, params *clerk.ListSubscriptionsByUserIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
