@@ -137,6 +137,31 @@ func TestInvitationCreateWithExpiration(t *testing.T) {
 	require.Equal(t, expiresAt, *invitation.ExpiresAt)
 }
 
+func TestInvitationCreateWithTemplateSlug(t *testing.T) {
+	emailAddress := "foo@bar.com"
+	id := "inv_123"
+	templateSlug := "template-slug"
+	clerk.SetBackend(clerk.NewBackend(&clerk.BackendConfig{
+		HTTPClient: &http.Client{
+			Transport: &clerktest.RoundTripper{
+				T:      t,
+				In:     json.RawMessage(fmt.Sprintf(`{"email_address":"%s","template_slug":"%s"}`, emailAddress, templateSlug)),
+				Out:    json.RawMessage(fmt.Sprintf(`{"id":"%s","email_address":"%s"}`, id, emailAddress)),
+				Method: http.MethodPost,
+				Path:   "/v1/invitations",
+			},
+		},
+	}))
+
+	invitation, err := Create(context.Background(), &CreateParams{
+		EmailAddress: emailAddress,
+		TemplateSlug: &templateSlug,
+	})
+	require.NoError(t, err)
+	require.Equal(t, id, invitation.ID)
+	require.Equal(t, emailAddress, invitation.EmailAddress)
+}
+
 func TestInvitationCreate_Error(t *testing.T) {
 	clerk.SetBackend(clerk.NewBackend(&clerk.BackendConfig{
 		HTTPClient: &http.Client{
