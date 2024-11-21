@@ -34,6 +34,7 @@ func CreateInvoice(ctx context.Context, params *clerk.CreateInvoiceParams) (*cle
 	return getClient().CreateInvoice(ctx, params)
 }
 
+// --- Common Fake Data Helpers ---
 func ListInvoicesByInstanceID(ctx context.Context, params *clerk.ListInvoicesByInstanceIDParams) (*clerk.ListCommerceInvoicesResponse, error) {
 	return getClient().ListInvoicesByInstanceID(ctx, params)
 }

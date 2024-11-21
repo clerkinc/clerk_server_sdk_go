@@ -8,20 +8,22 @@ import (
 
 type CreateProductParams struct {
 	APIParams
-	InstanceID     string `json:"instance_id"`
-	Name           string `json:"name"`
-	Slug           string `json:"slug"`
-	Currency       string `json:"currency"`
-	SubscriberType string `json:"subscriber_type"`
+	InstanceID      string   `json:"instance_id"`
+	Name            string   `json:"name"`
+	Slug            string   `json:"slug"`
+	Currency        string   `json:"currency"`
+	SubscriberType  []string `json:"subscriber_type"`
+	OwnerEntityType string   `json:"owner_entity_type"`
 }
 
 type UpdateProductParams struct {
 	APIParams
-	ID             string  `json:"id"`
-	Name           *string `json:"name,omitempty"`
-	Slug           *string `json:"slug,omitempty"`
-	Currency       *string `json:"currency,omitempty"`
-	SubscriberType *string `json:"subscriber_type,omitempty"`
+	ID              string    `json:"id"`
+	Name            *string   `json:"name,omitempty"`
+	Slug            *string   `json:"slug,omitempty"`
+	Currency        *string   `json:"currency,omitempty"`
+	SubscriberType  *[]string `json:"subscriber_type,omitempty"`
+	OwnerEntityType *string   `json:"owner_entity_type,omitempty"`
 }
 
 type GetProductByIDParams struct {
@@ -31,11 +33,14 @@ type GetProductByIDParams struct {
 
 type CommerceProduct struct {
 	APIResource
-	Name            string `json:"name"`
-	Slug            string `json:"slug"`
-	Currency        string `json:"currency"`
-	SubscriberType  string `json:"subscriber_type"`
-	OwnerEntityType string `json:"owner_entity_type"`
+	ID              string    `json:"id"`
+	Name            string    `json:"name"`
+	Slug            string    `json:"slug"`
+	Currency        string    `json:"currency"`
+	SubscriberType  []string  `json:"subscriber_type"`
+	OwnerEntityType string    `json:"owner_entity_type"`
+	CreatedAt       time.Time `json:"created_at"`
+	UpdatedAt       time.Time `json:"updated_at"`
 }
 
 type CommerceProductWithPlans struct {
@@ -57,70 +62,74 @@ type ListCommerceProductsResponse struct {
 
 type CreatePlanParams struct {
 	APIParams
-	Name        *string `json:"name,omitempty"`
-	ProductID   *string `json:"product_id,omitempty"`
-	BaseAmount  *int64  `json:"base_amount,omitempty"`
-	IsRecurring *bool   `json:"is_recurring,omitempty"`
+	Name        string `json:"name"`
+	ProductID   string `json:"product_id"`
+	BaseAmount  int64  `json:"base_amount"`
+	IsRecurring bool   `json:"is_recurring"`
 }
 
 type UpdatePlanParams struct {
 	APIParams
-	ID   *string `json:"id,omitempty"`
+	ID   string  `json:"id"`
 	Name *string `json:"name,omitempty"`
 }
 
 type GetPlanByIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type CommercePlan struct {
 	APIResource
-	Name            *string `json:"name,omitempty"`
-	ProductID       *string `json:"product_id,omitempty"`
-	BaseAmount      *int64  `json:"base_amount,omitempty"`
-	IsRecurring     *bool   `json:"is_recurring,omitempty"`
-	Period          *string `json:"period,omitempty"`
-	Interval        *int    `json:"interval,omitempty"`
-	BillingCycles   *int    `json:"billing_cycles,omitempty"`
-	SubscriberCount *int64  `json:"subscriber_count,omitempty"`
+	ID              string          `json:"id"`
+	Name            string          `json:"name"`
+	Product         CommerceProduct `json:"product"`
+	BaseAmount      int64           `json:"base_amount"`
+	IsRecurring     bool            `json:"is_recurring"`
+	IsProrated      bool            `json:"is_prorated"`
+	Period          string          `json:"period"` // e.g., "month" or "year"
+	Interval        int             `json:"interval"`
+	BillingCycles   *int            `json:"billing_cycles,omitempty"`
+	SubscriberCount int64           `json:"subscriber_count"`
+	CreatedAt       time.Time       `json:"created_at"`
+	UpdatedAt       time.Time       `json:"updated_at"`
 }
 
 type ListPlansByInstanceIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 // --- Integration Types ---
 
 type CreateIntegrationParams struct {
 	APIParams
-	InstanceID *string `json:"instance_id,omitempty"`
-	Email      *string `json:"email,omitempty"`
-	Type       *string `json:"type,omitempty"`
+	InstanceID string `json:"instance_id"`
+	Email      string `json:"email"`
+	Type       string `json:"type"`
 }
 
 type UpdateIntegrationParams struct {
 	APIParams
-	CommerceIntegrationID *string `json:"id,omitempty"`
-	Status                *string `json:"status,omitempty"`
+	CommerceIntegrationID string `json:"id"`
+	Status                string `json:"status"`
 }
 
 type GetIntegrationParams struct {
 	APIParams
-	IntegrationID *string `json:"id,omitempty"`
+	IntegrationID string `json:"id"`
 }
 
 type CommerceIntegration struct {
 	APIResource
-	IntegrationID   *string `json:"integration_id,omitempty"`
-	IntegrationType *string `json:"integration_type,omitempty"`
-	Status          *string `json:"status,omitempty"`
+	IntegrationID   string `json:"integration_id"`
+	IntegrationType string `json:"integration_type"`
+	Status          string `json:"status"`
 }
 
 type CommerceIntegrationResponse struct {
 	APIResource
-	URL *string `json:"url,omitempty"`
+	URL string `json:"url"`
 }
 
 type ListCommerceIntegrationsResponse struct {
@@ -130,44 +139,50 @@ type ListCommerceIntegrationsResponse struct {
 
 type ListIntegrationsByInstanceIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 // --- Subscription Types ---
 
 type CreateSubscriptionParams struct {
 	APIParams
-	CustomerID *string `json:"customer_id,omitempty"`
-	PlanID     *string `json:"plan_id,omitempty"`
-	Status     *string `json:"status,omitempty"`
+	CustomerID string `json:"customer_id"`
+	PlanID     string `json:"plan_id"`
+	Status     string `json:"status"`
 }
 
 type UpdateSubscriptionParams struct {
 	APIParams
-	ID     *string `json:"id,omitempty"`
+	ID     string  `json:"id"`
 	Status *string `json:"status,omitempty"`
 }
 
 type GetSubscriptionByIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type ListSubscriptionsByInstanceIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type ListSubscriptionsByUserIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type CommerceSubscription struct {
 	APIResource
-	Customer *CommerceCustomer `json:"customer,omitempty"`
-	Plan     *CommercePlan     `json:"plan,omitempty"`
-	Status   *string           `json:"status,omitempty"`
+	ID          string           `json:"id"`
+	AppID       string           `json:"app_id"`
+	Customer    CommerceCustomer `json:"customer"`
+	Plan        CommercePlan     `json:"plan"`
+	Status      string           `json:"status"`
+	LastInvoice *CommerceInvoice `json:"last_invoice,omitempty"`
+	NextInvoice *CommerceInvoice `json:"next_invoice,omitempty"`
+	CreatedAt   time.Time        `json:"created_at"`
+	UpdatedAt   time.Time        `json:"updated_at"`
 }
 
 type ListCommerceSubscriptionsResponse struct {
@@ -179,33 +194,35 @@ type ListCommerceSubscriptionsResponse struct {
 
 type CreateInvoiceParams struct {
 	APIParams
-	SubscriptionID *string `json:"subscription_id,omitempty"`
-	Amount         *int64  `json:"amount,omitempty"`
-	DueAt          *string `json:"due_at,omitempty"`
+	SubscriptionID string `json:"subscription_id"`
+	Amount         int64  `json:"amount"`
+	DueAt          string `json:"due_at"`
 }
 
 type UpdateInvoiceParams struct {
 	APIParams
-	ID     *string `json:"id,omitempty"`
+	ID     string  `json:"id"`
 	Status *string `json:"status,omitempty"`
 }
 
 type GetInvoiceByIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type ListInvoicesByInstanceIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type CommerceInvoice struct {
 	APIResource
-	Subscription *CommerceSubscription `json:"subscription,omitempty"`
-	Amount       *int64                `json:"amount,omitempty"`
-	Status       *string               `json:"status,omitempty"`
-	DueAt        *time.Time            `json:"due_at,omitempty"`
+	ID                       string                `json:"id"`
+	Subscription             *CommerceSubscription `json:"subscription,omitempty"`
+	Amount                   int64                 `json:"amount"`
+	Status                   string                `json:"status"`
+	DueAt                    *time.Time            `json:"due_at,omitempty"`
+	FinalizingPaymentAttempt string                `json:"finalizing_payment_attempt_id,omitempty"`
 }
 
 type ListCommerceInvoicesResponse struct {
@@ -217,9 +234,9 @@ type ListCommerceInvoicesResponse struct {
 
 type CreatePaymentAttemptParams struct {
 	APIParams
-	InvoiceID *string `json:"invoice_id,omitempty"`
-	Amount    *int64  `json:"amount,omitempty"`
-	Status    *string `json:"status,omitempty"`
+	InvoiceID string `json:"invoice_id"`
+	Amount    int64  `json:"amount"`
+	Status    string `json:"status"`
 }
 
 type UpdatePaymentAttemptParams struct {
@@ -230,19 +247,21 @@ type UpdatePaymentAttemptParams struct {
 
 type GetPaymentAttemptByIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type ListPaymentAttemptsByInstanceIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type CommercePaymentAttempt struct {
 	APIResource
-	Invoice *CommerceInvoice `json:"invoice,omitempty"`
-	Amount  *int64           `json:"amount,omitempty"`
-	Status  *string          `json:"status,omitempty"`
+	ID        string          `json:"id"`
+	Invoice   CommerceInvoice `json:"invoice"`
+	Amount    int64           `json:"amount"`
+	Status    string          `json:"status"`
+	CreatedAt time.Time       `json:"created_at"`
 }
 
 type ListCommercePaymentAttemptsResponse struct {
@@ -253,15 +272,17 @@ type ListCommercePaymentAttemptsResponse struct {
 // --- Customer Types ---
 
 type CommerceCustomer struct {
+	ID     string `json:"id"`
+	AppID  string `json:"app_id"`
 	Entity *struct {
-		ID   *string `json:"id,omitempty"`
-		Name *string `json:"name,omitempty"`
-	} `json:"entity,omitempty"`
+		ID   string `json:"id"`
+		Name string `json:"name"`
+	} `json:"entity"`
 }
 
 // --- Pagination Types ---
 
 type PaginatedList[T any] struct {
-	Data       *[]T   `json:"data,omitempty"`
-	TotalCount *int64 `json:"total_count,omitempty"`
+	Data       []T   `json:"data"`
+	TotalCount int64 `json:"total_count"`
 }
