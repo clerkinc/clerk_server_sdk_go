@@ -1,55 +1,55 @@
 package clerk
 
-import "time"
+import (
+	"time"
+)
 
 // --- Product Types ---
 
 type CreateProductParams struct {
 	APIParams
-	InstanceID      *string   `json:"instance_id,omitempty"`
-	Name            *string   `json:"name,omitempty"`
-	Slug            *string   `json:"slug,omitempty"`
-	Currency        *string   `json:"currency,omitempty"`
-	SubscriberType  *[]string `json:"subscriber_type,omitempty"`
-	OwnerEntityType *string   `json:"owner_entity_type,omitempty"`
+	InstanceID     string `json:"instance_id"`
+	Name           string `json:"name"`
+	Slug           string `json:"slug"`
+	Currency       string `json:"currency"`
+	SubscriberType string `json:"subscriber_type"`
 }
 
 type UpdateProductParams struct {
 	APIParams
-	ID              *string   `json:"id,omitempty"`
-	Name            *string   `json:"name,omitempty"`
-	Slug            *string   `json:"slug,omitempty"`
-	Currency        *string   `json:"currency,omitempty"`
-	SubscriberType  *[]string `json:"subscriber_type,omitempty"`
-	OwnerEntityType *string   `json:"owner_entity_type,omitempty"`
+	ID             string  `json:"id"`
+	Name           *string `json:"name,omitempty"`
+	Slug           *string `json:"slug,omitempty"`
+	Currency       *string `json:"currency,omitempty"`
+	SubscriberType *string `json:"subscriber_type,omitempty"`
 }
 
 type GetProductByIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type CommerceProduct struct {
 	APIResource
-	Name            *string   `json:"name,omitempty"`
-	Slug            *string   `json:"slug,omitempty"`
-	Currency        *string   `json:"currency,omitempty"`
-	SubscriberType  *[]string `json:"subscriber_type,omitempty"`
-	OwnerEntityType *string   `json:"owner_entity_type,omitempty"`
+	Name            string `json:"name"`
+	Slug            string `json:"slug"`
+	Currency        string `json:"currency"`
+	SubscriberType  string `json:"subscriber_type"`
+	OwnerEntityType string `json:"owner_entity_type"`
 }
 
 type CommerceProductWithPlans struct {
 	CommerceProduct
-	Plans *[]CommercePlan `json:"plans,omitempty"`
+	Plans []CommercePlan `json:"plans"`
 }
 
 type ListProductsByInstanceIDParams struct {
 	APIParams
-	ID *string `json:"id,omitempty"`
+	ID string `json:"id"`
 }
 
 type ListCommerceProductsResponse struct {
-	APIParams
+	APIResource
 	PaginatedList[CommerceProduct]
 }
 
@@ -124,7 +124,7 @@ type CommerceIntegrationResponse struct {
 }
 
 type ListCommerceIntegrationsResponse struct {
-	APIParams
+	APIResource
 	PaginatedList[CommerceIntegration]
 }
 
@@ -171,7 +171,7 @@ type CommerceSubscription struct {
 }
 
 type ListCommerceSubscriptionsResponse struct {
-	APIParams
+	APIResource
 	PaginatedList[CommerceSubscription]
 }
 
@@ -209,7 +209,7 @@ type CommerceInvoice struct {
 }
 
 type ListCommerceInvoicesResponse struct {
-	APIParams
+	APIResource
 	PaginatedList[CommerceInvoice]
 }
 
@@ -224,7 +224,7 @@ type CreatePaymentAttemptParams struct {
 
 type UpdatePaymentAttemptParams struct {
 	APIParams
-	ID     *string `json:"id,omitempty"`
+	ID     string  `json:"id"`
 	Status *string `json:"status,omitempty"`
 }
 
@@ -246,7 +246,7 @@ type CommercePaymentAttempt struct {
 }
 
 type ListCommercePaymentAttemptsResponse struct {
-	APIParams
+	APIResource
 	PaginatedList[CommercePaymentAttempt]
 }
 
@@ -262,7 +262,6 @@ type CommerceCustomer struct {
 // --- Pagination Types ---
 
 type PaginatedList[T any] struct {
-	APIResource
 	Data       *[]T   `json:"data,omitempty"`
 	TotalCount *int64 `json:"total_count,omitempty"`
 }

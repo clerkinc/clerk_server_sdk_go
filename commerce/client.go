@@ -172,7 +172,7 @@ func (c *Client) GetPaymentAttemptByID(ctx context.Context, params *clerk.GetPay
 }
 
 func (c *Client) UpdatePaymentAttempt(ctx context.Context, params *clerk.UpdatePaymentAttemptParams) (*clerk.CommercePaymentAttempt, error) {
-	reqPath, err := clerk.JoinPath(path, paymentAttemptsPath, *params.ID)
+	reqPath, err := clerk.JoinPath(path, paymentAttemptsPath, params.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -197,7 +197,7 @@ func (c *Client) CreateProduct(ctx context.Context, params *clerk.CreateProductP
 }
 
 func (c *Client) ListProductsByInstanceID(ctx context.Context, params *clerk.ListProductsByInstanceIDParams) (*clerk.ListCommerceProductsResponse, error) {
-	reqPath, err := clerk.JoinPath(path, productsPath, "instance", *params.ID)
+	reqPath, err := clerk.JoinPath(path, productsPath, "instance", params.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -208,7 +208,7 @@ func (c *Client) ListProductsByInstanceID(ctx context.Context, params *clerk.Lis
 }
 
 func (c *Client) GetProductByID(ctx context.Context, params *clerk.GetProductByIDParams) (*clerk.CommerceProduct, error) {
-	reqPath, err := clerk.JoinPath(path, productsPath, *params.ID)
+	reqPath, err := clerk.JoinPath(path, productsPath, params.ID)
 	if err != nil {
 		return nil, err
 	}
@@ -219,7 +219,7 @@ func (c *Client) GetProductByID(ctx context.Context, params *clerk.GetProductByI
 }
 
 func (c *Client) UpdateProduct(ctx context.Context, params *clerk.UpdateProductParams) (*clerk.CommerceProduct, error) {
-	reqPath, err := clerk.JoinPath(path, productsPath, *params.ID)
+	reqPath, err := clerk.JoinPath(path, productsPath, params.ID)
 	if err != nil {
 		return nil, err
 	}
