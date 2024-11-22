@@ -244,7 +244,7 @@ func (c *Client) fakeSubscription() *clerk.CommerceSubscription {
 	}
 }
 
-func (c *Client) ListInvoicesByInstanceID(ctx context.Context, params *clerk.ListInvoicesByInstanceIDParams) (*clerk.ListCommerceInvoicesResponse, error) {
+func (c *Client) ListInvoicesBySubscriptionID(ctx context.Context, params *clerk.ListInvoicesBySubscriptionIDParams) (*clerk.ListCommerceInvoicesResponse, error) {
 	fakeInvoices := []clerk.CommerceInvoice{
 		{
 			Amount: *clerk.Int64(5000),
@@ -284,7 +284,7 @@ func (c *Client) CreatePaymentAttempt(ctx context.Context, params *clerk.CreateP
 	}, nil
 }
 
-func (c *Client) ListPaymentAttemptsByInstanceID(ctx context.Context, params *clerk.ListPaymentAttemptsByInstanceIDParams) (*clerk.ListCommercePaymentAttemptsResponse, error) {
+func (c *Client) ListPaymentAttemptsByInvoiceID(ctx context.Context, params *clerk.ListPaymentAttemptsByInvoiceIDParams) (*clerk.ListCommercePaymentAttemptsResponse, error) {
 	fakePaymentAttempts := []clerk.CommercePaymentAttempt{
 		{
 			Amount: *clerk.Int64(5000),

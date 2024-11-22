@@ -43,8 +43,8 @@ func CreateInvoice(ctx context.Context, params *clerk.CreateInvoiceParams) (*cle
 }
 
 // --- Common Fake Data Helpers ---
-func ListInvoicesByInstanceID(ctx context.Context, params *clerk.ListInvoicesByInstanceIDParams) (*clerk.ListCommerceInvoicesResponse, error) {
-	return getClient().ListInvoicesByInstanceID(ctx, params)
+func ListInvoicesBySubscriptionID(ctx context.Context, params *clerk.ListInvoicesBySubscriptionIDParams) (*clerk.ListCommerceInvoicesResponse, error) {
+	return getClient().ListInvoicesBySubscriptionID(ctx, params)
 }
 
 func GetInvoiceByID(ctx context.Context, params *clerk.GetInvoiceByIDParams) (*clerk.CommerceInvoice, error) {
@@ -60,8 +60,8 @@ func CreatePaymentAttempt(ctx context.Context, params *clerk.CreatePaymentAttemp
 	return getClient().CreatePaymentAttempt(ctx, params)
 }
 
-func ListPaymentAttemptsByInstanceID(ctx context.Context, params *clerk.ListPaymentAttemptsByInstanceIDParams) (*clerk.ListCommercePaymentAttemptsResponse, error) {
-	return getClient().ListPaymentAttemptsByInstanceID(ctx, params)
+func ListPaymentAttemptsByInvoiceID(ctx context.Context, params *clerk.ListPaymentAttemptsByInvoiceIDParams) (*clerk.ListCommercePaymentAttemptsResponse, error) {
+	return getClient().ListPaymentAttemptsByInvoiceID(ctx, params)
 }
 
 func GetPaymentAttemptByID(ctx context.Context, params *clerk.GetPaymentAttemptByIDParams) (*clerk.CommercePaymentAttempt, error) {

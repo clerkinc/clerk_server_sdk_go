@@ -238,9 +238,9 @@ type GetInvoiceByIDParams struct {
 	ID string `json:"id"`
 }
 
-type ListInvoicesByInstanceIDParams struct {
+type ListInvoicesBySubscriptionIDParams struct {
 	APIParams
-	ID string `json:"id"`
+	SubscriptionID string `json:"subscription_id"`
 }
 
 type CommerceInvoice struct {
@@ -278,9 +278,9 @@ type GetPaymentAttemptByIDParams struct {
 	ID string `json:"id"`
 }
 
-type ListPaymentAttemptsByInstanceIDParams struct {
+type ListPaymentAttemptsByInvoiceIDParams struct {
 	APIParams
-	ID string `json:"id"`
+	InvoiceID string `json:"invoice_id"`
 }
 
 type CommercePaymentAttempt struct {
