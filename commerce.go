@@ -138,13 +138,9 @@ type GetSubscriptionByIDParams struct {
 	ID string `json:"id"`
 }
 
-type ListSubscriptionsByInstanceIDParams struct {
-	APIParams
-	ID string `json:"id"`
-}
-
 type ListSubscriptionsByUserIDParams struct {
 	APIParams
+	ID string `json:"id"`
 }
 
 type CommerceSubscription struct {

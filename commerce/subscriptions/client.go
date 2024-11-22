@@ -36,7 +36,7 @@ func (c *Client) Create(ctx context.Context, params *clerk.CreateSubscriptionPar
 	return resource, err
 }
 
-func (c *Client) List(ctx context.Context, params *clerk.ListSubscriptionsByInstanceIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
+func (c *Client) List(ctx context.Context) (*clerk.ListCommerceSubscriptionsResponse, error) {
 	reqPath, err := clerk.JoinPath(rootPath, path)
 	if err != nil {
 		return nil, err

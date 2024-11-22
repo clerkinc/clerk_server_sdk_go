@@ -12,8 +12,8 @@ func Create(ctx context.Context, params *clerk.CreateSubscriptionParams) (*clerk
 	return getClient().Create(ctx, params)
 }
 
-func List(ctx context.Context, params *clerk.ListSubscriptionsByInstanceIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
-	return getClient().List(ctx, params)
+func List(ctx context.Context) (*clerk.ListCommerceSubscriptionsResponse, error) {
+	return getClient().List(ctx)
 }
 
 func ListByUserID(ctx context.Context, params *clerk.ListSubscriptionsByUserIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
