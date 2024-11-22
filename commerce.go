@@ -18,7 +18,6 @@ type CreateProductParams struct {
 
 type UpdateProductParams struct {
 	APIParams
-	ID              string    `json:"id"`
 	Name            *string   `json:"name,omitempty"`
 	Slug            *string   `json:"slug,omitempty"`
 	Currency        *string   `json:"currency,omitempty"`
@@ -44,6 +43,7 @@ type CommerceProduct struct {
 }
 
 type CommerceProductWithPlans struct {
+	APIResource
 	CommerceProduct
 	Plans []CommercePlan `json:"plans"`
 }
@@ -53,10 +53,7 @@ type ListProductsByInstanceIDParams struct {
 	ID string `json:"id"`
 }
 
-type ListCommerceProductsResponse struct {
-	APIResource
-	PaginatedList[CommerceProduct]
-}
+type CommerceProductList PaginatedList[CommerceProduct]
 
 // --- Plan Types ---
 
@@ -97,29 +94,9 @@ type CommercePlan struct {
 
 type ListPlansByInstanceIDParams struct {
 	APIParams
-	ID string `json:"id"`
 }
 
 // --- Integration Types ---
-
-type CreateIntegrationParams struct {
-	APIParams
-	InstanceID string `json:"instance_id"`
-	Email      string `json:"email"`
-	Type       string `json:"type"`
-}
-
-type UpdateIntegrationParams struct {
-	APIParams
-	CommerceIntegrationID string `json:"id"`
-	Status                string `json:"status"`
-}
-
-type GetIntegrationParams struct {
-	APIParams
-	IntegrationID string `json:"id"`
-}
-
 type CommerceIntegration struct {
 	APIResource
 	IntegrationID   string `json:"integration_id"`
@@ -127,7 +104,7 @@ type CommerceIntegration struct {
 	Status          string `json:"status"`
 }
 
-type CommerceIntegrationResponse struct {
+type CommerceIntegrationList struct {
 	APIResource
 	URL string `json:"url"`
 }
@@ -153,7 +130,6 @@ type CreateSubscriptionParams struct {
 
 type UpdateSubscriptionParams struct {
 	APIParams
-	ID     string  `json:"id"`
 	Status *string `json:"status,omitempty"`
 }
 
@@ -169,7 +145,6 @@ type ListSubscriptionsByInstanceIDParams struct {
 
 type ListSubscriptionsByUserIDParams struct {
 	APIParams
-	ID string `json:"id"`
 }
 
 type CommerceSubscription struct {
@@ -219,30 +194,6 @@ type ClerkEmail struct {
 }
 
 // --- Invoice Types ---
-
-type CreateInvoiceParams struct {
-	APIParams
-	SubscriptionID string `json:"subscription_id"`
-	Amount         int64  `json:"amount"`
-	DueAt          string `json:"due_at"`
-}
-
-type UpdateInvoiceParams struct {
-	APIParams
-	ID     string  `json:"id"`
-	Status *string `json:"status,omitempty"`
-}
-
-type GetInvoiceByIDParams struct {
-	APIParams
-	ID string `json:"id"`
-}
-
-type ListInvoicesBySubscriptionIDParams struct {
-	APIParams
-	SubscriptionID string `json:"subscription_id"`
-}
-
 type CommerceInvoice struct {
 	APIResource
 	ID                       string                `json:"id"`
@@ -253,35 +204,9 @@ type CommerceInvoice struct {
 	FinalizingPaymentAttempt string                `json:"finalizing_payment_attempt_id,omitempty"`
 }
 
-type ListCommerceInvoicesResponse struct {
-	APIResource
-	PaginatedList[CommerceInvoice]
-}
+type CommerceInvoiceList PaginatedList[CommerceInvoice]
 
 // --- Payment Attempt Types ---
-
-type CreatePaymentAttemptParams struct {
-	APIParams
-	InvoiceID string `json:"invoice_id"`
-	Amount    int64  `json:"amount"`
-	Status    string `json:"status"`
-}
-
-type UpdatePaymentAttemptParams struct {
-	APIParams
-	ID     string  `json:"id"`
-	Status *string `json:"status,omitempty"`
-}
-
-type GetPaymentAttemptByIDParams struct {
-	APIParams
-	ID string `json:"id"`
-}
-
-type ListPaymentAttemptsByInvoiceIDParams struct {
-	APIParams
-	InvoiceID string `json:"invoice_id"`
-}
 
 type CommercePaymentAttempt struct {
 	APIResource
@@ -306,11 +231,4 @@ type CommerceCustomer struct {
 		ID   string `json:"id"`
 		Name string `json:"name"`
 	} `json:"entity"`
-}
-
-// --- Pagination Types ---
-
-type PaginatedList[T any] struct {
-	Data       []T   `json:"data"`
-	TotalCount int64 `json:"total_count"`
 }

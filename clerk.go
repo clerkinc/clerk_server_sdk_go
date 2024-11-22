@@ -521,3 +521,9 @@ func Bool(v bool) *bool {
 func JSONRawMessage(v json.RawMessage) *json.RawMessage {
 	return &v
 }
+
+type PaginatedList[T any] struct {
+	APIResource
+	Data       *[]T   `json:"data,omitempty"`
+	TotalCount *int64 `json:"total_count,omitempty"`
+}

@@ -1,4 +1,4 @@
-package commerce
+package integration
 
 import (
 	"testing"
