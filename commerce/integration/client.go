@@ -17,8 +17,8 @@ const (
 
 type CreateParams struct {
 	clerk.APIParams
-	Email *string `json:"email,omitempty"`
-	Type  *string `json:"type,omitempty"`
+	Email           *string `json:"email,omitempty"`
+	IntegrationType *string `json:"integration_type,omitempty"`
 }
 
 type ListParams struct {
