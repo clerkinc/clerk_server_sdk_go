@@ -8,23 +8,23 @@ import (
 	"github.com/clerk/clerk-sdk-go/v2"
 )
 
-func CreateSubscription(ctx context.Context, params *clerk.CreateSubscriptionParams) (*clerk.CommerceSubscription, error) {
+func Create(ctx context.Context, params *clerk.CreateSubscriptionParams) (*clerk.CommerceSubscription, error) {
 	return getClient().Create(ctx, params)
 }
 
-func ListSubscriptionsByInstanceID(ctx context.Context, params *clerk.ListSubscriptionsByInstanceIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
+func List(ctx context.Context, params *clerk.ListSubscriptionsByInstanceIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
 	return getClient().List(ctx, params)
 }
 
-func ListSubscriptionsByUserID(ctx context.Context, params *clerk.ListSubscriptionsByUserIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
+func ListByUserID(ctx context.Context, params *clerk.ListSubscriptionsByUserIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
 	return getClient().ListByUserID(ctx, params)
 }
 
-func GetSubscriptionByID(ctx context.Context, id string) (*clerk.CommerceSubscription, error) {
+func Get(ctx context.Context, id string) (*clerk.CommerceSubscription, error) {
 	return getClient().Get(ctx, id)
 }
 
-func UpdateSubscription(ctx context.Context, id string, params *clerk.UpdateSubscriptionParams) (*clerk.CommerceSubscription, error) {
+func Update(ctx context.Context, id string, params *clerk.UpdateSubscriptionParams) (*clerk.CommerceSubscription, error) {
 	return getClient().Update(ctx, id, params)
 }
 

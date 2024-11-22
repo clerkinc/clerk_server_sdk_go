@@ -8,19 +8,19 @@ import (
 	"github.com/clerk/clerk-sdk-go/v2"
 )
 
-func CreateProduct(ctx context.Context, params *clerk.CreateProductParams) (*clerk.CommerceProduct, error) {
+func Create(ctx context.Context, params *clerk.CreateProductParams) (*clerk.CommerceProduct, error) {
 	return getClient().Create(ctx, params)
 }
 
-func ListProductsByInstanceID(ctx context.Context, params *clerk.ListProductsByInstanceIDParams) (*clerk.CommerceProductList, error) {
+func List(ctx context.Context, params *clerk.ListProductsByInstanceIDParams) (*clerk.CommerceProductList, error) {
 	return getClient().List(ctx, params)
 }
 
-func GetProductByID(ctx context.Context, id string) (*clerk.CommerceProduct, error) {
+func Get(ctx context.Context, id string) (*clerk.CommerceProduct, error) {
 	return getClient().Get(ctx, id)
 }
 
-func UpdateProduct(ctx context.Context, id string, params *clerk.UpdateProductParams) (*clerk.CommerceProduct, error) {
+func Update(ctx context.Context, id string, params *clerk.UpdateProductParams) (*clerk.CommerceProduct, error) {
 	return getClient().Update(ctx, id, params)
 }
 

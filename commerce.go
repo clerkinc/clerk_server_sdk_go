@@ -156,8 +156,8 @@ type CommerceSubscription struct {
 	Status      string           `json:"status"`
 	LastInvoice *CommerceInvoice `json:"last_invoice,omitempty"`
 	NextInvoice *CommerceInvoice `json:"next_invoice,omitempty"`
-	CreatedAt   time.Time        `json:"created_at"`
-	UpdatedAt   time.Time        `json:"updated_at"`
+	CreatedAt   string           `json:"created_at"` // ISO 8601 format
+	UpdatedAt   string           `json:"updated_at"` // ISO 8601 format
 }
 
 type ListCommerceSubscriptionsResponse struct {
