@@ -83,6 +83,46 @@ func (c *Client) ListSubscriptionsByInstanceID(ctx context.Context, params *cler
 	}, nil
 }
 
+func (c *Client) GetSubscription(ctx context.Context, params *clerk.GetSubscriptionParams) (*clerk.CommerceSubscription, error) {
+	fakePlan := c.fakePlan()
+	return &clerk.CommerceSubscription{
+		ID: params.ID,
+		Customer: clerk.CommerceCustomer{
+			ID: *clerk.String("customer_789"),
+			Entity: &struct {
+				ID   string `json:"id"`
+				Name string `json:"name"`
+			}{
+				ID:   *clerk.String("customer_789"),
+				Name: *clerk.String("Neo"),
+			},
+		},
+		Plan:   *fakePlan,
+		Status: *clerk.String("active"),
+	}, nil
+}
+
+func (c *Client) ListSubscribers(ctx context.Context, params *clerk.ListSubscribersParams) (*clerk.ListCommerceSubscribersResponse, error) {
+	fakeSubscribers := []clerk.CommerceSubscriber{
+		{
+			ID:    "subscriber_001",
+			Name:  "Trinity",
+			Email: "trinity@example.com",
+		},
+		{
+			ID:    "subscriber_002",
+			Name:  "Morpheus",
+			Email: "morpheus@example.com",
+		},
+	}
+	return &clerk.ListCommerceSubscribersResponse{
+		PaginatedList: clerk.PaginatedList[clerk.CommerceSubscriber]{
+			Data:       fakeSubscribers,
+			TotalCount: *clerk.Int64(2),
+		},
+	}, nil
+}
+
 func (c *Client) ListSubscriptionsByUserID(ctx context.Context, params *clerk.ListSubscriptionsByUserIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
 	fakePlan := c.fakePlan()
 	fakeSubscriptions := []clerk.CommerceSubscription{

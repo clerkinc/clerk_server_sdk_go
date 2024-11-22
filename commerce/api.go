@@ -17,6 +17,14 @@ func ListSubscriptionsByInstanceID(ctx context.Context, params *clerk.ListSubscr
 	return getClient().ListSubscriptionsByInstanceID(ctx, params)
 }
 
+func GetSubscription(ctx context.Context, params *clerk.GetSubscriptionParams) (*clerk.CommerceSubscription, error) {
+	return getClient().GetSubscription(ctx, params)
+}
+
+func ListSubscribers(ctx context.Context, params *clerk.ListSubscribersParams) (*clerk.ListCommerceSubscribersResponse, error) {
+	return getClient().ListSubscribers(ctx, params)
+}
+
 func ListSubscriptionsByUserID(ctx context.Context, params *clerk.ListSubscriptionsByUserIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
 	return getClient().ListSubscriptionsByUserID(ctx, params)
 }

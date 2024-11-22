@@ -190,6 +190,34 @@ type ListCommerceSubscriptionsResponse struct {
 	PaginatedList[CommerceSubscription]
 }
 
+// --- Subscription Types ---
+
+type GetSubscriptionParams struct {
+	APIParams
+	ID string `json:"id"`
+}
+
+type ListSubscribersParams struct {
+	APIParams
+	InstanceID string `json:"instance_id"`
+}
+
+type CommerceSubscriber struct {
+	ID    string `json:"id"`
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
+type ListCommerceSubscribersResponse struct {
+	APIResource
+	PaginatedList[CommerceSubscriber]
+}
+
+// Supporting structs for emails
+type ClerkEmail struct {
+	Address string `json:"address"`
+}
+
 // --- Invoice Types ---
 
 type CreateInvoiceParams struct {
