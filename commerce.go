@@ -88,8 +88,8 @@ type CommercePlan struct {
 	Interval        int             `json:"interval"`
 	BillingCycles   *int            `json:"billing_cycles,omitempty"`
 	SubscriberCount int64           `json:"subscriber_count"`
-	CreatedAt       time.Time       `json:"created_at"`
-	UpdatedAt       time.Time       `json:"updated_at"`
+	CreatedAt       string          `json:"created_at"` // ISO 8601 format
+	UpdatedAt       string          `json:"updated_at"` // ISO 8601 format
 }
 
 type ListPlansByInstanceIDParams struct {
@@ -99,9 +99,12 @@ type ListPlansByInstanceIDParams struct {
 // --- Integration Types ---
 type CommerceIntegration struct {
 	APIResource
-	IntegrationID   string `json:"integration_id"`
-	IntegrationType string `json:"integration_type"`
-	Status          string `json:"status"`
+	ID                string `json:"id"`
+	IntegrationType   string `json:"integration_type"`
+	IntegrationStatus string `json:"integration_status"`
+	CreatedAt         string `json:"created_at"` // ISO 8601 format
+	UpdatedAt         string `json:"updated_at"` // ISO 8601 format
+	InstanceID        string `json:"instance_id"`
 }
 
 type CommerceIntegrationList struct {
