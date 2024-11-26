@@ -73,7 +73,7 @@ func (c *Client) ListInvoices(ctx context.Context, subscriptionID string) (*cler
 }
 
 func (c *Client) ListByUserID(ctx context.Context, params *clerk.ListSubscriptionsByUserIDParams) (*clerk.ListCommerceSubscriptionsResponse, error) {
-	reqPath, err := clerk.JoinPath(rootPath, path)
+	reqPath, err := clerk.JoinPath(rootPath, "subscribers", params.SubscriberType, params.ID, "subscriptions")
 	if err != nil {
 		return nil, err
 	}

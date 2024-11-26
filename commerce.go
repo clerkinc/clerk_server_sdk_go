@@ -143,7 +143,8 @@ type GetSubscriptionByIDParams struct {
 
 type ListSubscriptionsByUserIDParams struct {
 	APIParams
-	ID string `json:"id"`
+	ID             string `json:"id"`
+	SubscriberType string `json:"subscriber_type"`
 }
 
 type CommerceSubscription struct {
