@@ -16,6 +16,10 @@ func List(ctx context.Context, params *ListParams) (*clerk.ListCommercePaymentAt
 	return getClient().List(ctx, params)
 }
 
+func ListByInvoiceID(ctx context.Context, invoiceID string) (*clerk.ListCommercePaymentAttemptsResponse, error) {
+	return getClient().ListByInvoiceID(ctx, invoiceID)
+}
+
 func Get(ctx context.Context, id string) (*clerk.CommercePaymentAttempt, error) {
 	return getClient().Get(ctx, id)
 }

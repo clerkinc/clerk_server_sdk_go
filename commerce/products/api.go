@@ -12,8 +12,8 @@ func Create(ctx context.Context, params *clerk.CreateProductParams) (*clerk.Comm
 	return getClient().Create(ctx, params)
 }
 
-func List(ctx context.Context, params *clerk.ListProductsByInstanceIDParams) (*clerk.CommerceProductList, error) {
-	return getClient().List(ctx, params)
+func List(ctx context.Context) (*clerk.CommerceProductList, error) {
+	return getClient().List(ctx)
 }
 
 func Get(ctx context.Context, id string) (*clerk.CommerceProduct, error) {

@@ -55,6 +55,17 @@ func (c *Client) List(ctx context.Context, params *ListParams) (*clerk.ListComme
 	return resource, err
 }
 
+func (c *Client) ListByInvoiceID(ctx context.Context, invoiceID string) (*clerk.ListCommercePaymentAttemptsResponse, error) {
+	reqPath, err := clerk.JoinPath(rootPath, path, "invoices", invoiceID)
+	if err != nil {
+		return nil, err
+	}
+	req := clerk.NewAPIRequest(http.MethodGet, reqPath)
+	resource := &clerk.ListCommercePaymentAttemptsResponse{}
+	err = c.Backend.Call(ctx, req, resource)
+	return resource, err
+}
+
 func (c *Client) Get(ctx context.Context, id string) (*clerk.CommercePaymentAttempt, error) {
 	reqPath, err := clerk.JoinPath(rootPath, path, id)
 	if err != nil {
