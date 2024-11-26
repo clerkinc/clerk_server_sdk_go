@@ -3,6 +3,8 @@ package subscriptions
 import (
 	"context"
 	"net/http"
+	"net/url"
+	"strings"
 
 	"github.com/clerk/clerk-sdk-go/v2"
 )
@@ -36,11 +38,34 @@ func (c *Client) Create(ctx context.Context, params *clerk.CreateSubscriptionPar
 	return resource, err
 }
 
-func (c *Client) List(ctx context.Context) (*clerk.ListCommerceSubscriptionsResponse, error) {
+func (c *Client) List(ctx context.Context, includes []string) (*clerk.ListCommerceSubscriptionsResponse, error) {
+	// Build the base path
 	reqPath, err := clerk.JoinPath(rootPath, path)
 	if err != nil {
 		return nil, err
 	}
+
+	if len(includes) > 0 {
+		query := url.Values{}
+		query.Set("include", strings.Join(includes, ","))
+		reqPath += "?" + query.Encode()
+	}
+
+	// Create the API request
+	req := clerk.NewAPIRequest(http.MethodGet, reqPath)
+	resource := &clerk.ListCommerceSubscriptionsResponse{}
+	err = c.Backend.Call(ctx, req, resource)
+	return resource, err
+}
+
+func (c *Client) ListInvoices(ctx context.Context, subscriptionID string) (*clerk.ListCommerceSubscriptionsResponse, error) {
+	// Build the base path
+	reqPath, err := clerk.JoinPath(rootPath, path, subscriptionID, "invoices")
+	if err != nil {
+		return nil, err
+	}
+
+	// Create the API request
 	req := clerk.NewAPIRequest(http.MethodGet, reqPath)
 	resource := &clerk.ListCommerceSubscriptionsResponse{}
 	err = c.Backend.Call(ctx, req, resource)
