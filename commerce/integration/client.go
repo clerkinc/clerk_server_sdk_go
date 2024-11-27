@@ -47,7 +47,7 @@ func (c *Client) Create(ctx context.Context, params *CreateParams) (*clerk.Comme
 	return resource, err
 }
 
-func (c *Client) List(ctx context.Context, params *ListParams) (*clerk.CommerceIntegrationList, error) {
+func (c *Client) List(ctx context.Context) (*clerk.CommerceIntegrationList, error) {
 	reqPath, err := clerk.JoinPath(rootPath, path)
 	if err != nil {
 		return nil, err

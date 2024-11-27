@@ -105,11 +105,12 @@ type CommerceIntegration struct {
 	CreatedAt         string `json:"created_at"` // ISO 8601 format
 	UpdatedAt         string `json:"updated_at"` // ISO 8601 format
 	InstanceID        string `json:"instance_id"`
+	URL               string `json:"url"`
 }
 
 type CommerceIntegrationList struct {
 	APIResource
-	URL string `json:"url"`
+	PaginatedList[CommerceIntegration]
 }
 
 type ListCommerceIntegrationsResponse struct {

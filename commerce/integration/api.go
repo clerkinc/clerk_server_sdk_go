@@ -12,8 +12,8 @@ func Create(ctx context.Context, params *CreateParams) (*clerk.CommerceIntegrati
 	return getClient().Create(ctx, params)
 }
 
-func List(ctx context.Context, params *ListParams) (*clerk.CommerceIntegrationList, error) {
-	return getClient().List(ctx, params)
+func List(ctx context.Context) (*clerk.CommerceIntegrationList, error) {
+	return getClient().List(ctx)
 }
 
 func Get(ctx context.Context, id string) (*clerk.CommerceIntegration, error) {
