@@ -78,18 +78,23 @@ type GetPlanByIDParams struct {
 
 type CommercePlan struct {
 	APIResource
-	ID              string          `json:"id"`
-	Name            string          `json:"name"`
-	Product         CommerceProduct `json:"product"`
-	BaseAmount      int64           `json:"base_amount"`
-	IsRecurring     bool            `json:"is_recurring"`
-	IsProrated      bool            `json:"is_prorated"`
-	Period          string          `json:"period"` // e.g., "month" or "year"
-	Interval        int             `json:"interval"`
-	BillingCycles   *int            `json:"billing_cycles,omitempty"`
-	SubscriberCount int64           `json:"subscriber_count"`
-	CreatedAt       string          `json:"created_at"` // ISO 8601 format
-	UpdatedAt       string          `json:"updated_at"` // ISO 8601 format
+	ID              string           `json:"id"`
+	Name            string           `json:"name"`
+	Product         *CommerceProduct `json:"product,omitempty"`
+	BaseAmount      int64            `json:"base_amount"`
+	IsRecurring     bool             `json:"is_recurring"`
+	IsProrated      bool             `json:"is_prorated"`
+	Period          string           `json:"period"`
+	Interval        int              `json:"interval"`
+	BillingCycles   *int             `json:"billing_cycles,omitempty"`
+	SubscriberCount int64            `json:"subscriber_count"`
+	CreatedAt       string           `json:"created_at"`
+	UpdatedAt       string           `json:"updated_at"`
+}
+
+type CommercePlanWithNoProduct struct {
+	CommercePlan
+	Product *CommerceProduct `json:"-"`
 }
 
 type ListPlansByInstanceIDParams struct {
@@ -127,9 +132,9 @@ type ListIntegrationsByInstanceIDParams struct {
 
 type CreateSubscriptionParams struct {
 	APIParams
-	CustomerID string `json:"customer_id"`
-	PlanID     string `json:"plan_id"`
-	Status     string `json:"status"`
+	CustomerID      string `json:"customer_id"`
+	PlanID          string `json:"plan_id"`
+	PaymentSourceID string `json:"payment_source_id"`
 }
 
 type UpdateSubscriptionParams struct {
@@ -150,15 +155,18 @@ type ListSubscriptionsByUserIDParams struct {
 
 type CommerceSubscription struct {
 	APIResource
-	ID          string           `json:"id"`
-	AppID       string           `json:"app_id"`
-	Customer    CommerceCustomer `json:"customer"`
-	Plan        CommercePlan     `json:"plan"`
-	Status      string           `json:"status"`
-	LastInvoice *CommerceInvoice `json:"last_invoice,omitempty"`
-	NextInvoice *CommerceInvoice `json:"next_invoice,omitempty"`
-	CreatedAt   string           `json:"created_at"` // ISO 8601 format
-	UpdatedAt   string           `json:"updated_at"` // ISO 8601 format
+	ID              string            `json:"id"`
+	AppID           string            `json:"app_id"`
+	Customer        *CommerceCustomer `json:"customer,omitempty"`
+	InstanceID      string            `json:"instance_id"`
+	PaymentSourceID string            `json:"payment_source_id"`
+	PlanID          string            `json:"plan_id"`
+	Plan            *CommercePlan     `json:"plan,omitempty"`
+	Status          string            `json:"status"`
+	LastInvoice     *CommerceInvoice  `json:"last_invoice,omitempty"`
+	NextInvoice     *CommerceInvoice  `json:"next_invoice,omitempty"`
+	CreatedAt       string            `json:"created_at"` // ISO 8601 format
+	UpdatedAt       string            `json:"updated_at"` // ISO 8601 format
 }
 
 type ListCommerceSubscriptionsResponse struct {
