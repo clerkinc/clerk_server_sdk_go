@@ -79,13 +79,17 @@ type GetPlanByIDParams struct {
 type CommercePlan struct {
 	APIResource
 	ID              string           `json:"id"`
-	Name            string           `json:"name"`
+	Name            string           `json:"plan_name"`
 	Product         *CommerceProduct `json:"product,omitempty"`
-	BaseAmount      int64            `json:"base_amount"`
+	BaseAmount      int64            `json:"amount"`
 	IsRecurring     bool             `json:"is_recurring"`
 	IsProrated      bool             `json:"is_prorated"`
 	Period          string           `json:"period"`
-	Interval        int              `json:"interval"`
+	IntervalUnit    string           `json:"interval_unit"`
+	IntervalCount   int              `json:"interval_count"`
+	AvatarURL       string           `json:"avatar_url"`
+	Description     string           `json:"plan_description"`
+	Slug            string           `json:"slug"`
 	BillingCycles   *int             `json:"billing_cycles,omitempty"`
 	SubscriberCount int64            `json:"subscriber_count"`
 	CreatedAt       string           `json:"created_at"`
