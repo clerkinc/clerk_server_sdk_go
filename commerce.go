@@ -32,14 +32,14 @@ type GetProductByIDParams struct {
 
 type CommerceProduct struct {
 	APIResource
-	ID              string    `json:"id"`
-	Name            string    `json:"name"`
-	Slug            string    `json:"slug"`
-	Currency        string    `json:"currency"`
-	SubscriberType  []string  `json:"subscriber_type"`
-	OwnerEntityType string    `json:"owner_entity_type"`
-	CreatedAt       time.Time `json:"created_at"`
-	UpdatedAt       time.Time `json:"updated_at"`
+	ID              string   `json:"id"`
+	Name            string   `json:"name"`
+	Slug            string   `json:"slug"`
+	Currency        string   `json:"currency"`
+	SubscriberType  []string `json:"subscriber_type"`
+	OwnerEntityType string   `json:"owner_entity_type"`
+	CreatedAt       string   `json:"created_at"`
+	UpdatedAt       string   `json:"updated_at"`
 }
 
 type CommerceProductWithPlans struct {
