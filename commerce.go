@@ -88,6 +88,7 @@ type CommercePlan struct {
 	IntervalUnit    string           `json:"interval_unit"`
 	IntervalCount   int              `json:"interval_count"`
 	AvatarURL       string           `json:"avatar_url"`
+	ProductID       string           `json:"product_id"`
 	Description     string           `json:"plan_description"`
 	Slug            string           `json:"slug"`
 	BillingCycles   *int             `json:"billing_cycles,omitempty"`
