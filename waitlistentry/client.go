@@ -58,6 +58,7 @@ func (c *Client) List(ctx context.Context, params *ListParams) (*clerk.WaitlistE
 type CreateParams struct {
 	clerk.APIParams
 	EmailAddress string `json:"email_address"`
+	Notify       *bool  `json:"notify,omitempty"`
 }
 
 // Create adds a new waitlist entry.
