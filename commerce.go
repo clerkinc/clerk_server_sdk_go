@@ -35,7 +35,7 @@ type CommerceProduct struct {
 	Name            string          `json:"name"`
 	Slug            string          `json:"slug"`
 	Currency        string          `json:"currency"`
-	Plans           []*CommercePlan `json:"plans,omitempty"`
+	Plans           []*CommercePlan `json:"plans"`
 	SubscriberType  []string        `json:"subscriber_type"`
 	OwnerEntityType string          `json:"owner_entity_type"`
 	CreatedAt       string          `json:"created_at"`
