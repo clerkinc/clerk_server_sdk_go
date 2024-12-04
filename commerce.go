@@ -18,11 +18,10 @@ type CreateProductParams struct {
 
 type UpdateProductParams struct {
 	APIParams
-	Name            *string   `json:"name,omitempty"`
-	Slug            *string   `json:"slug,omitempty"`
-	Currency        *string   `json:"currency,omitempty"`
-	SubscriberType  *[]string `json:"subscriber_type,omitempty"`
-	OwnerEntityType *string   `json:"owner_entity_type,omitempty"`
+	Name           *string   `json:"name,omitempty"`
+	Slug           *string   `json:"slug,omitempty"`
+	Currency       *string   `json:"currency,omitempty"`
+	SubscriberType *[]string `json:"subscriber_type,omitempty"`
 }
 
 type GetProductByIDParams struct {
