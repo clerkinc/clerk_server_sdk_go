@@ -64,7 +64,7 @@ func (params *GetParams) ToQuery() url.Values {
 // Get retrieves details for an organization.
 // The organization can be fetched by either the ID or its slug.
 func (c *Client) Get(ctx context.Context, idOrSlug string) (*clerk.Organization, error) {
-	return c.GetWithParams(ctx, idOrSlug, nil)
+	return c.GetWithParams(ctx, idOrSlug, &GetParams{})
 }
 
 // GetWithParams retrieves details for an organization.
