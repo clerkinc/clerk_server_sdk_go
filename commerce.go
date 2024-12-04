@@ -67,8 +67,15 @@ type CreatePlanParams struct {
 
 type UpdatePlanParams struct {
 	APIParams
-	ID   string  `json:"id"`
-	Name *string `json:"name,omitempty"`
+	ID            string  `json:"id"`
+	Name          *string `json:"name,omitempty"`
+	Amount        *int64  `json:"amount,omitempty"`
+	IsRecurring   *bool   `json:"is_recurring,omitempty"`
+	IsProrated    *bool   `json:"is_prorated,omitempty"`
+	Period        *string `json:"period,omitempty"`
+	IntervalUnit  *string `json:"interval_unit,omitempty"`
+	IntervalCount *int    `json:"interval_count,omitempty"`
+	AvatarURL     *string `json:"avatar_url,omitempty"`
 }
 
 type GetPlanByIDParams struct {
