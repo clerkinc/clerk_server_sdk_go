@@ -59,10 +59,16 @@ type CommerceProductList PaginatedList[CommerceProduct]
 
 type CreatePlanParams struct {
 	APIParams
-	Name        string `json:"name"`
-	ProductID   string `json:"product_id"`
-	BaseAmount  int64  `json:"base_amount"`
-	IsRecurring bool   `json:"is_recurring"`
+	Name          string `json:"name"`
+	ProductID     string `json:"product_id"`
+	BaseAmount    int64  `json:"base_amount"`
+	IsRecurring   bool   `json:"is_recurring"`
+	IsProrated    bool   `json:"is_prorated"`
+	Period        string `json:"period"`
+	IntervalUnit  string `json:"interval_unit"`
+	IntervalCount int    `json:"interval_count"`
+	AvatarURL     string `json:"avatar_url"`
+	Description   string `json:"description"`
 }
 
 type UpdatePlanParams struct {
