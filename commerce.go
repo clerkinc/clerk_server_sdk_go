@@ -55,33 +55,113 @@ type ListProductsByInstanceIDParams struct {
 
 type CommerceProductList PaginatedList[CommerceProduct]
 
+// --- Feature Types ---
+
+type CommerceFeatureUnitPricing struct {
+	Amount int64 `json:"amount"`
+	Qty    int   `json:"qty"`
+}
+
+type CommerceFeature struct {
+	APIResource
+	ID              string                       `json:"id"`
+	PlanID          string                       `json:"plan_id"`
+	Name            string                       `json:"name"`
+	Description     string                       `json:"description"`
+	AvatarURL       string                       `json:"avatar_url"`
+	Slug            string                       `json:"slug"`
+	PubliclyVisible bool                         `json:"publicly_visible"`
+	IncludeInJWT    bool                         `json:"include_in_jwt"`
+	JWTValue        string                       `json:"jwt_value"`
+	IsAddon         bool                         `json:"is_addon"`
+	BaseFeeAmount   int64                        `json:"base_fee_amount"`
+	IsMetered       bool                         `json:"is_metered"`
+	BillingModel    string                       `json:"billing_model"`
+	UnitName        string                       `json:"unit_name"`
+	UnitNamePlural  string                       `json:"unit_name_plural"`
+	HasTrialUnits   bool                         `json:"has_trial_units"`
+	TrialUnits      int                          `json:"trial_units"`
+	UnitPricing     []CommerceFeatureUnitPricing `json:"unit_pricing"`
+	CreatedAt       string                       `json:"created_at"`
+	UpdatedAt       string                       `json:"updated_at"`
+}
+
+type CommerceFeatureList PaginatedList[CommerceFeature]
+
+type CreateFeatureParams struct {
+	APIParams
+	Name            string                       `json:"name"`
+	Description     string                       `json:"description"`
+	AvatarURL       string                       `json:"avatar_url"`
+	Slug            string                       `json:"slug"`
+	PubliclyVisible bool                         `json:"publicly_visible"`
+	IncludeInJWT    bool                         `json:"include_in_jwt"`
+	JWTValue        string                       `json:"jwt_value"`
+	IsAddon         bool                         `json:"is_addon"`
+	BaseFeeAmount   int64                        `json:"base_fee_amount"`
+	IsMetered       bool                         `json:"is_metered"`
+	BillingModel    string                       `json:"billing_model"`
+	UnitName        string                       `json:"unit_name"`
+	UnitNamePlural  string                       `json:"unit_name_plural"`
+	TrialUnits      int                          `json:"trial_units"`
+	UnitPricing     []CommerceFeatureUnitPricing `json:"unit_pricing"`
+}
+
+type UpdateFeatureParams struct {
+	APIParams
+	ID              string                        `json:"id"`
+	Name            *string                       `json:"name,omitempty"`
+	Description     *string                       `json:"description,omitempty"`
+	AvatarURL       *string                       `json:"avatar_url,omitempty"`
+	Slug            *string                       `json:"slug,omitempty"`
+	PubliclyVisible *bool                         `json:"publicly_visible,omitempty"`
+	IncludeInJWT    *bool                         `json:"include_in_jwt,omitempty"`
+	JWTValue        *string                       `json:"jwt_value,omitempty"`
+	IsAddon         *bool                         `json:"is_addon,omitempty"`
+	BaseFeeAmount   *int64                        `json:"base_fee_amount,omitempty"`
+	IsMetered       *bool                         `json:"is_metered,omitempty"`
+	BillingModel    *string                       `json:"billing_model,omitempty"`
+	UnitName        *string                       `json:"unit_name,omitempty"`
+	UnitNamePlural  *string                       `json:"unit_name_plural,omitempty"`
+	TrialUnits      *int                          `json:"trial_units,omitempty"`
+	UnitPricing     *[]CommerceFeatureUnitPricing `json:"unit_pricing,omitempty"`
+}
+
+type ListFeaturesByInstanceIDParams struct {
+	APIParams
+	ID string `json:"id"`
+}
+
+type ListFeaturesByPlanIDParams struct {
+	APIParams
+	ID string `json:"id"`
+}
+
 // --- Plan Types ---
 
 type CreatePlanParams struct {
 	APIParams
-	Name          string `json:"name"`
-	ProductID     string `json:"product_id"`
-	BaseAmount    int64  `json:"base_amount"`
-	IsRecurring   bool   `json:"is_recurring"`
-	IsProrated    bool   `json:"is_prorated"`
-	Period        string `json:"period"`
-	IntervalUnit  string `json:"interval_unit"`
-	IntervalCount int    `json:"interval_count"`
-	AvatarURL     string `json:"avatar_url"`
-	Description   string `json:"description"`
+	Name        string `json:"name"`
+	ProductID   string `json:"product_id"`
+	Amount      int64  `json:"amount"`
+	IsRecurring bool   `json:"is_recurring"`
+	IsProrated  bool   `json:"is_prorated"`
+	Period      string `json:"period"`
+	Interval    int    `json:"interval"`
+	AvatarURL   string `json:"avatar_url"`
+	Description string `json:"description"`
 }
 
 type UpdatePlanParams struct {
 	APIParams
-	ID            string  `json:"id"`
-	Name          *string `json:"name,omitempty"`
-	Amount        *int64  `json:"amount,omitempty"`
-	IsRecurring   *bool   `json:"is_recurring,omitempty"`
-	IsProrated    *bool   `json:"is_prorated,omitempty"`
-	Period        *string `json:"period,omitempty"`
-	IntervalUnit  *string `json:"interval_unit,omitempty"`
-	IntervalCount *int    `json:"interval_count,omitempty"`
-	AvatarURL     *string `json:"avatar_url,omitempty"`
+	ID          string  `json:"id"`
+	Name        *string `json:"name,omitempty"`
+	Amount      *int64  `json:"amount,omitempty"`
+	IsRecurring *bool   `json:"is_recurring,omitempty"`
+	IsProrated  *bool   `json:"is_prorated,omitempty"`
+	Period      *string `json:"period,omitempty"`
+	Interval    *int    `json:"interval,omitempty"`
+	AvatarURL   *string `json:"avatar_url,omitempty"`
 }
 
 type GetPlanByIDParams struct {
@@ -92,17 +172,16 @@ type GetPlanByIDParams struct {
 type CommercePlan struct {
 	APIResource
 	ID              string           `json:"id"`
-	Name            string           `json:"plan_name"`
+	Name            string           `json:"name"`
 	Product         *CommerceProduct `json:"product,omitempty"`
-	BaseAmount      int64            `json:"amount"`
+	Amount          int64            `json:"amount"`
 	IsRecurring     bool             `json:"is_recurring"`
 	IsProrated      bool             `json:"is_prorated"`
 	Period          string           `json:"period"`
-	IntervalUnit    string           `json:"interval_unit"`
-	IntervalCount   int              `json:"interval_count"`
+	Interval        int              `json:"interval"`
 	AvatarURL       string           `json:"avatar_url"`
 	ProductID       string           `json:"product_id"`
-	Description     string           `json:"plan_description"`
+	Description     string           `json:"description"`
 	Slug            string           `json:"slug"`
 	BillingCycles   *int             `json:"billing_cycles,omitempty"`
 	SubscriberCount int64            `json:"subscriber_count"`
