@@ -35,13 +35,13 @@ func (c *Client) Create(ctx context.Context, params *clerk.CreatePlanParams) (*c
 	return resource, err
 }
 
-func (c *Client) List(ctx context.Context, params *clerk.ListPlansByInstanceIDParams) (*clerk.CommerceProductList, error) {
+func (c *Client) List(ctx context.Context, params *clerk.ListPlansByInstanceIDParams) (*clerk.CommercePlanList, error) {
 	reqPath, err := clerk.JoinPath(rootPath, path)
 	if err != nil {
 		return nil, err
 	}
 	req := clerk.NewAPIRequest(http.MethodGet, reqPath)
-	resource := &clerk.CommerceProductList{}
+	resource := &clerk.CommercePlanList{}
 	err = c.Backend.Call(ctx, req, resource)
 	return resource, err
 }

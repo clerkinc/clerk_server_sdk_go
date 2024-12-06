@@ -12,7 +12,7 @@ func Create(ctx context.Context, params *clerk.CreatePlanParams) (*clerk.Commerc
 	return getClient().Create(ctx, params)
 }
 
-func List(ctx context.Context, params *clerk.ListPlansByInstanceIDParams) (*clerk.CommerceProductList, error) {
+func List(ctx context.Context, params *clerk.ListPlansByInstanceIDParams) (*clerk.CommercePlanList, error) {
 	return getClient().List(ctx, params)
 }
 

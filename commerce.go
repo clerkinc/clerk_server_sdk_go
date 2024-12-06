@@ -194,6 +194,8 @@ type CommercePlanWithNoProduct struct {
 	Product *CommerceProduct `json:"-"`
 }
 
+type CommercePlanList PaginatedList[CommercePlan]
+
 type ListPlansByInstanceIDParams struct {
 	APIParams
 }
