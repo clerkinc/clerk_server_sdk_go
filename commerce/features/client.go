@@ -47,7 +47,7 @@ func (c *Client) List(ctx context.Context, params *clerk.ListFeaturesByInstanceI
 }
 
 func (c *Client) ListByPlanID(ctx context.Context, params *clerk.ListFeaturesByPlanIDParams) (*clerk.CommerceFeatureList, error) {
-	reqPath, err := clerk.JoinPath(rootPath, path)
+	reqPath, err := clerk.JoinPath(rootPath, "plans", params.ID, path)
 	if err != nil {
 		return nil, err
 	}
