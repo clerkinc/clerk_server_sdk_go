@@ -92,6 +92,7 @@ type CreateFeatureParams struct {
 	APIParams
 	Name            string                       `json:"name"`
 	Description     string                       `json:"description"`
+	PlanID          string                       `json:"plan_id"`
 	AvatarURL       string                       `json:"avatar_url"`
 	Slug            string                       `json:"slug"`
 	PubliclyVisible bool                         `json:"publicly_visible"`

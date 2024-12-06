@@ -24,7 +24,7 @@ func NewClient(config *clerk.ClientConfig) *Client {
 }
 
 func (c *Client) Create(ctx context.Context, params *clerk.CreateFeatureParams) (*clerk.CommerceFeature, error) {
-	reqPath, err := clerk.JoinPath(rootPath, path)
+	reqPath, err := clerk.JoinPath(rootPath, "plans", params.PlanID, path)
 	if err != nil {
 		return nil, err
 	}
