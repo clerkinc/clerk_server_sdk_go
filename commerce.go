@@ -201,33 +201,6 @@ type ListPlansByInstanceIDParams struct {
 	APIParams
 }
 
-// --- Integration Types ---
-type CommerceIntegration struct {
-	APIResource
-	ID                string `json:"id"`
-	IntegrationType   string `json:"integration_type"`
-	IntegrationStatus string `json:"integration_status"`
-	CreatedAt         string `json:"created_at"` // ISO 8601 format
-	UpdatedAt         string `json:"updated_at"` // ISO 8601 format
-	InstanceID        string `json:"instance_id"`
-	URL               string `json:"url"`
-}
-
-type CommerceIntegrationList struct {
-	APIResource
-	PaginatedList[CommerceIntegration]
-}
-
-type ListCommerceIntegrationsResponse struct {
-	APIResource
-	PaginatedList[CommerceIntegration]
-}
-
-type ListIntegrationsByInstanceIDParams struct {
-	APIParams
-	ID string `json:"id"`
-}
-
 // --- Subscription Types ---
 
 type CreateSubscriptionParams struct {
