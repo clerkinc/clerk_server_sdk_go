@@ -21,7 +21,7 @@ The official [Clerk](https://clerk.com) Go client library for accessing the [Cle
 
 Check out the [upgrade guide](UPGRADING.md#1-x-x-to-2-x-x).
 
-## Requirements
+Would you like to work on Open Source software and help maintain this repository? [Apply today!](https://jobs.ashbyhq.com/clerk)
 
 - Go 1.19 or later.
 
