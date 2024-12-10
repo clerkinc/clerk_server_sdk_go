@@ -19,6 +19,12 @@ func Get(ctx context.Context, idOrSlug string) (*clerk.Organization, error) {
 	return getClient().Get(ctx, idOrSlug)
 }
 
+// GetWithParams retrieves details for an organization.
+// The organization can be fetched by either the ID or its slug.
+func GetWithParams(ctx context.Context, idOrSlug string, params *GetParams) (*clerk.Organization, error) {
+	return getClient().GetWithParams(ctx, idOrSlug, params)
+}
+
 // Update updates an organization.
 func Update(ctx context.Context, id string, params *UpdateParams) (*clerk.Organization, error) {
 	return getClient().Update(ctx, id, params)

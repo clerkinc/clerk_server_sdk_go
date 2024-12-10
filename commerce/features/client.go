@@ -24,6 +24,18 @@ func NewClient(config *clerk.ClientConfig) *Client {
 }
 
 func (c *Client) Create(ctx context.Context, params *clerk.CreateFeatureParams) (*clerk.CommerceFeature, error) {
+	reqPath, err := clerk.JoinPath(rootPath, path)
+	if err != nil {
+		return nil, err
+	}
+	req := clerk.NewAPIRequest(http.MethodPost, reqPath)
+	req.SetParams(params)
+	resource := &clerk.CommerceFeature{}
+	err = c.Backend.Call(ctx, req, resource)
+	return resource, err
+}
+
+func (c *Client) CreatePlanFeature(ctx context.Context, params *clerk.CreatePlanFeatureParams) (*clerk.CommerceFeature, error) {
 	reqPath, err := clerk.JoinPath(rootPath, "plans", params.PlanID, path)
 	if err != nil {
 		return nil, err
@@ -33,6 +45,16 @@ func (c *Client) Create(ctx context.Context, params *clerk.CreateFeatureParams) 
 	resource := &clerk.CommerceFeature{}
 	err = c.Backend.Call(ctx, req, resource)
 	return resource, err
+}
+
+func (c *Client) DeletePlanFeature(ctx context.Context, params *clerk.DeletePlanFeatureParams) error {
+	reqPath, err := clerk.JoinPath(rootPath, "plans", params.PlanID, path, params.FeatureID)
+	if err != nil {
+		return err
+	}
+	req := clerk.NewAPIRequest(http.MethodDelete, reqPath)
+	err = c.Backend.Call(ctx, req, nil)
+	return err
 }
 
 func (c *Client) List(ctx context.Context, params *clerk.ListFeaturesByInstanceIDParams) (*clerk.CommerceFeatureList, error) {

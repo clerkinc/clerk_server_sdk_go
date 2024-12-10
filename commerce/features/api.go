@@ -12,6 +12,14 @@ func Create(ctx context.Context, params *clerk.CreateFeatureParams) (*clerk.Comm
 	return getClient().Create(ctx, params)
 }
 
+func CreatePlanFeature(ctx context.Context, params *clerk.CreatePlanFeatureParams) (*clerk.CommerceFeature, error) {
+	return getClient().CreatePlanFeature(ctx, params)
+}
+
+func DeletePlanFeature(ctx context.Context, params *clerk.DeletePlanFeatureParams) error {
+	return getClient().DeletePlanFeature(ctx, params)
+}
+
 func List(ctx context.Context, params *clerk.ListFeaturesByInstanceIDParams) (*clerk.CommerceFeatureList, error) {
 	return getClient().List(ctx, params)
 }

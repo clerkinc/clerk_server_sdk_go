@@ -88,11 +88,22 @@ type CommerceFeature struct {
 
 type CommerceFeatureList PaginatedList[CommerceFeature]
 
+type CreatePlanFeatureParams struct {
+	APIParams
+	PlanID    string `json:"plan_id"`
+	FeatureID string `json:"feature_id"`
+}
+
+type DeletePlanFeatureParams struct {
+	APIParams
+	FeatureID string `json:"feature_id"`
+	PlanID    string `json:"plan_id"`
+}
+
 type CreateFeatureParams struct {
 	APIParams
 	Name            string                       `json:"name"`
 	Description     string                       `json:"description"`
-	PlanID          string                       `json:"plan_id"`
 	AvatarURL       string                       `json:"avatar_url"`
 	Slug            string                       `json:"slug"`
 	PubliclyVisible bool                         `json:"publicly_visible"`
@@ -172,22 +183,23 @@ type GetPlanByIDParams struct {
 
 type CommercePlan struct {
 	APIResource
-	ID              string           `json:"id"`
-	Name            string           `json:"name"`
-	Product         *CommerceProduct `json:"product,omitempty"`
-	Amount          int64            `json:"amount"`
-	IsRecurring     bool             `json:"is_recurring"`
-	IsProrated      bool             `json:"is_prorated"`
-	Period          string           `json:"period"`
-	Interval        int              `json:"interval"`
-	AvatarURL       string           `json:"avatar_url"`
-	ProductID       string           `json:"product_id"`
-	Description     string           `json:"description"`
-	Slug            string           `json:"slug"`
-	BillingCycles   *int             `json:"billing_cycles,omitempty"`
-	SubscriberCount int64            `json:"subscriber_count"`
-	CreatedAt       string           `json:"created_at"`
-	UpdatedAt       string           `json:"updated_at"`
+	ID              string            `json:"id"`
+	Name            string            `json:"name"`
+	Product         *CommerceProduct  `json:"product,omitempty"`
+	Amount          int64             `json:"amount"`
+	IsRecurring     bool              `json:"is_recurring"`
+	IsProrated      bool              `json:"is_prorated"`
+	Period          string            `json:"period"`
+	Interval        int               `json:"interval"`
+	AvatarURL       string            `json:"avatar_url"`
+	ProductID       string            `json:"product_id"`
+	Description     string            `json:"description"`
+	Slug            string            `json:"slug"`
+	BillingCycles   *int              `json:"billing_cycles,omitempty"`
+	SubscriberCount int64             `json:"subscriber_count"`
+	CreatedAt       string            `json:"created_at"`
+	UpdatedAt       string            `json:"updated_at"`
+	Features        []CommerceFeature `json:"features"`
 }
 
 type CommercePlanWithNoProduct struct {
