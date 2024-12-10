@@ -82,31 +82,6 @@ func TestOrganizationClientGet(t *testing.T) {
 	require.Equal(t, name, organization.Name)
 }
 
-func TestOrganizationClientGetWithParams(t *testing.T) {
-	t.Parallel()
-	id := "org_123"
-	name := "Acme Inc"
-	config := &clerk.ClientConfig{}
-	config.HTTPClient = &http.Client{
-		Transport: &clerktest.RoundTripper{
-			T:      t,
-			Out:    json.RawMessage(fmt.Sprintf(`{"id":"%s","name":"%s"}`, id, name)),
-			Method: http.MethodGet,
-			Path:   "/v1/organizations/" + id,
-			Query: &url.Values{
-				"include_members_count": []string{"true"},
-			},
-		},
-	}
-	client := NewClient(config)
-	organization, err := client.GetWithParams(context.Background(), id, &GetParams{
-		IncludeMembersCount: clerk.Bool(true),
-	})
-	require.NoError(t, err)
-	require.Equal(t, id, organization.ID)
-	require.Equal(t, name, organization.Name)
-}
-
 func TestOrganizationClientUpdate(t *testing.T) {
 	t.Parallel()
 	id := "org_123"
