@@ -28,7 +28,6 @@ func main() {
 
 	// We're looking for source code in <package-name>/client.go files.
 	filePath, err := filepath.Abs(path.Join(cwd, "client.go"))
-
 	if err != nil {
 		log.Fatal(fmt.Errorf("get absolute file path: %w", err))
 	}
