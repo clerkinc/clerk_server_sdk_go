@@ -35,14 +35,14 @@ func (c *Client) Create(ctx context.Context, params *clerk.CreateFeatureParams) 
 	return resource, err
 }
 
-func (c *Client) CreatePlanFeature(ctx context.Context, params *clerk.CreatePlanFeatureParams) (*clerk.CommerceFeature, error) {
+func (c *Client) CreatePlanFeature(ctx context.Context, params *clerk.CreatePlanFeatureParams) (*clerk.CommercePlanFeature, error) {
 	reqPath, err := clerk.JoinPath(rootPath, "plans", params.PlanID, path)
 	if err != nil {
 		return nil, err
 	}
 	req := clerk.NewAPIRequest(http.MethodPost, reqPath)
 	req.SetParams(params)
-	resource := &clerk.CommerceFeature{}
+	resource := &clerk.CommercePlanFeature{}
 	err = c.Backend.Call(ctx, req, resource)
 	return resource, err
 }

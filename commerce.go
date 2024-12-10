@@ -62,10 +62,18 @@ type CommerceFeatureUnitPricing struct {
 	Qty    int   `json:"qty"`
 }
 
+type CommercePlanFeature struct {
+	APIResource
+	ID        string `json:"id"`
+	PlanID    string `json:"plan_id"`
+	FeatureID string `json:"feature_id"`
+	CreatedAt string `json:"created_at"`
+	UpdatedAt string `json:"updated_at"`
+}
+
 type CommerceFeature struct {
 	APIResource
 	ID              string                       `json:"id"`
-	PlanID          string                       `json:"plan_id"`
 	Name            string                       `json:"name"`
 	Description     string                       `json:"description"`
 	AvatarURL       string                       `json:"avatar_url"`

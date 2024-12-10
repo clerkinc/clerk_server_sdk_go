@@ -12,7 +12,7 @@ func Create(ctx context.Context, params *clerk.CreateFeatureParams) (*clerk.Comm
 	return getClient().Create(ctx, params)
 }
 
-func CreatePlanFeature(ctx context.Context, params *clerk.CreatePlanFeatureParams) (*clerk.CommerceFeature, error) {
+func CreatePlanFeature(ctx context.Context, params *clerk.CreatePlanFeatureParams) (*clerk.CommercePlanFeature, error) {
 	return getClient().CreatePlanFeature(ctx, params)
 }
 
