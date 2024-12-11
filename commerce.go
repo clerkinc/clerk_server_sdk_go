@@ -71,6 +71,8 @@ type CommercePlanFeature struct {
 	UpdatedAt string `json:"updated_at"`
 }
 
+type CommercePlanFeatureList PaginatedList[CommercePlanFeature]
+
 type CommerceFeature struct {
 	APIResource
 	ID              string                       `json:"id"`
@@ -102,6 +104,12 @@ type CreatePlanFeatureParams struct {
 	FeatureID string `json:"feature_id"`
 }
 
+type CreateMultiplePlanFeaturesParams struct {
+	APIParams
+	PlanID     string   `json:"plan_id"`
+	FeatureIDs []string `json:"feature_ids"`
+}
+
 type DeletePlanFeatureParams struct {
 	APIParams
 	FeatureID string `json:"feature_id"`
@@ -125,6 +133,11 @@ type CreateFeatureParams struct {
 	UnitNamePlural  string                       `json:"unit_name_plural"`
 	TrialUnits      int                          `json:"trial_units"`
 	UnitPricing     []CommerceFeatureUnitPricing `json:"unit_pricing"`
+}
+
+type CreateMultipleFeaturesParams struct {
+	APIParams
+	Features []CreateFeatureParams `json:"features"`
 }
 
 type UpdateFeatureParams struct {

@@ -8,12 +8,12 @@ import (
 	"github.com/clerk/clerk-sdk-go/v2"
 )
 
-func Create(ctx context.Context, params *clerk.CreateFeatureParams) (*clerk.CommerceFeature, error) {
+func Create(ctx context.Context, params *clerk.CreateMultipleFeaturesParams) (*clerk.CommerceFeatureList, error) {
 	return getClient().Create(ctx, params)
 }
 
-func CreatePlanFeature(ctx context.Context, params *clerk.CreatePlanFeatureParams) (*clerk.CommercePlanFeature, error) {
-	return getClient().CreatePlanFeature(ctx, params)
+func CreatePlanFeatures(ctx context.Context, params *clerk.CreateMultiplePlanFeaturesParams) (*clerk.CommercePlanFeatureList, error) {
+	return getClient().CreatePlanFeatures(ctx, params)
 }
 
 func DeletePlanFeature(ctx context.Context, params *clerk.DeletePlanFeatureParams) error {
