@@ -110,10 +110,10 @@ type CreateMultiplePlanFeaturesParams struct {
 	FeatureIDs []string `json:"feature_ids"`
 }
 
-type DeletePlanFeatureParams struct {
+type DeletePlanFeaturesParams struct {
 	APIParams
-	FeatureID string `json:"feature_id"`
-	PlanID    string `json:"plan_id"`
+	FeatureIDs []string `json:"feature_ids"`
+	PlanID     string   `json:"plan_id"`
 }
 
 type CreateFeatureParams struct {

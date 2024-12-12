@@ -47,8 +47,8 @@ func (c *Client) CreatePlanFeatures(ctx context.Context, params *clerk.CreateMul
 	return resource, err
 }
 
-func (c *Client) DeletePlanFeature(ctx context.Context, params *clerk.DeletePlanFeatureParams) error {
-	reqPath, err := clerk.JoinPath(rootPath, "plans", params.PlanID, path, params.FeatureID)
+func (c *Client) DeletePlanFeatures(ctx context.Context, params *clerk.DeletePlanFeaturesParams) error {
+	reqPath, err := clerk.JoinPath(rootPath, "plans", params.PlanID, path)
 	if err != nil {
 		return err
 	}
