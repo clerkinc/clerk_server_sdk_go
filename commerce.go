@@ -176,6 +176,7 @@ type CreatePlanParams struct {
 	APIParams
 	Name        string `json:"name"`
 	ProductID   string `json:"product_id"`
+	Slug        string `json:"slug"`
 	Amount      int64  `json:"amount"`
 	IsRecurring bool   `json:"is_recurring"`
 	IsProrated  bool   `json:"is_prorated"`
@@ -190,7 +191,9 @@ type UpdatePlanParams struct {
 	ID          string  `json:"id"`
 	Name        *string `json:"name,omitempty"`
 	Amount      *int64  `json:"amount,omitempty"`
+	Slug        *string `json:"slug,omitempty"`
 	IsRecurring *bool   `json:"is_recurring,omitempty"`
+	Description *string `json:"description,omitempty"`
 	IsProrated  *bool   `json:"is_prorated,omitempty"`
 	Period      *string `json:"period,omitempty"`
 	Interval    *int    `json:"interval,omitempty"`
