@@ -16,8 +16,8 @@ func CreatePlanFeatures(ctx context.Context, params *clerk.CreateMultiplePlanFea
 	return getClient().CreatePlanFeatures(ctx, params)
 }
 
-func DeletePlanFeature(ctx context.Context, params *clerk.DeletePlanFeatureParams) error {
-	return getClient().DeletePlanFeature(ctx, params)
+func DeletePlanFeatures(ctx context.Context, params *clerk.DeletePlanFeaturesParams) error {
+	return getClient().DeletePlanFeatures(ctx, params)
 }
 
 func List(ctx context.Context, params *clerk.ListFeaturesByInstanceIDParams) (*clerk.CommerceFeatureList, error) {
