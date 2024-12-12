@@ -47,14 +47,16 @@ func (c *Client) CreatePlanFeatures(ctx context.Context, params *clerk.CreateMul
 	return resource, err
 }
 
-func (c *Client) DeletePlanFeatures(ctx context.Context, params *clerk.DeletePlanFeaturesParams) error {
+func (c *Client) DeletePlanFeatures(ctx context.Context, params *clerk.DeletePlanFeaturesParams) (*clerk.DeletedResource, error) {
 	reqPath, err := clerk.JoinPath(rootPath, "plans", params.PlanID, path)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	req := clerk.NewAPIRequest(http.MethodDelete, reqPath)
-	err = c.Backend.Call(ctx, req, nil)
-	return err
+	req.SetParams(params)
+	resource := &clerk.DeletedResource{}
+	err = c.Backend.Call(ctx, req, resource)
+	return resource, err
 }
 
 func (c *Client) List(ctx context.Context, params *clerk.ListFeaturesByInstanceIDParams) (*clerk.CommerceFeatureList, error) {

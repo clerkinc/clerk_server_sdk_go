@@ -16,7 +16,7 @@ func CreatePlanFeatures(ctx context.Context, params *clerk.CreateMultiplePlanFea
 	return getClient().CreatePlanFeatures(ctx, params)
 }
 
-func DeletePlanFeatures(ctx context.Context, params *clerk.DeletePlanFeaturesParams) error {
+func DeletePlanFeatures(ctx context.Context, params *clerk.DeletePlanFeaturesParams) (*clerk.DeletedResource, error) {
 	return getClient().DeletePlanFeatures(ctx, params)
 }
 
