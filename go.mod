@@ -1,4 +1,4 @@
-module github.com/clerk/clerk-sdk-go/v2
+module github.com/clerk/clerk-sdk-go/v3
 
 go 1.19
 
