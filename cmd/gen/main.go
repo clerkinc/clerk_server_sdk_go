@@ -178,7 +178,7 @@ package {{.PackageName}}
 import (
 	"context"
 
-	"github.com/clerk/clerk-sdk-go/v2"
+	"github.com/clerk/clerk-sdk-go/v3"
 )
 `))
 

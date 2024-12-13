@@ -5,7 +5,7 @@ package instancesettings
 import (
 	"context"
 
-	"github.com/clerk/clerk-sdk-go/v2"
+	"github.com/clerk/clerk-sdk-go/v3"
 )
 
 // Update updates the instance's settings.

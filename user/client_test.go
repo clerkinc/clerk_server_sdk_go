@@ -11,8 +11,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/clerk/clerk-sdk-go/v2"
-	"github.com/clerk/clerk-sdk-go/v2/clerktest"
+	"github.com/clerk/clerk-sdk-go/v3"
+	"github.com/clerk/clerk-sdk-go/v3/clerktest"
 	"github.com/stretchr/testify/require"
 )
 

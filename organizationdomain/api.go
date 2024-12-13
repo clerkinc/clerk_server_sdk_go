@@ -5,7 +5,7 @@ package organizationdomain
 import (
 	"context"
 
-	"github.com/clerk/clerk-sdk-go/v2"
+	"github.com/clerk/clerk-sdk-go/v3"
 )
 
 // Create adds a new domain to the organization.

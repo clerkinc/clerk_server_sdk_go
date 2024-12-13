@@ -5,7 +5,7 @@ package jwks
 import (
 	"context"
 
-	"github.com/clerk/clerk-sdk-go/v2"
+	"github.com/clerk/clerk-sdk-go/v3"
 )
 
 // Get retrieves a JSON Web Key set.

@@ -5,7 +5,7 @@ package organizationinvitation
 import (
 	"context"
 
-	"github.com/clerk/clerk-sdk-go/v2"
+	"github.com/clerk/clerk-sdk-go/v3"
 )
 
 // Create creates and sends an invitation to join an organization.
