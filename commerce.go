@@ -350,3 +350,16 @@ type CommerceCustomer struct {
 		Name string `json:"name"`
 	} `json:"entity"`
 }
+
+// --- Payee Types ---
+
+type CommercePayee struct {
+	APIResource
+
+	ID string `json:"id"`
+	StripeURL string `json:"stripe_url"`
+	StripeID string `json:"stripe_id"`
+}
+
+
+type CommercePayeeList PaginatedList[CommercePayee]
