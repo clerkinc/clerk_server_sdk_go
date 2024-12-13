@@ -1,5 +1,4 @@
-
-package payee
+package payees
 
 import (
 	"context"
@@ -16,19 +15,16 @@ const (
 
 type CreateParams struct {
 	clerk.APIParams
-	SubscriptionID *string `json:"subscription_id,omitempty"`
-	Amount         *int64  `json:"amount,omitempty"`
-	DueAt          *string `json:"due_at,omitempty"`
+	GatewayType string `json:"gateway_type" form:"gateway_type"`
+	Email       string `json:"email" form:"email"`
 }
 
 type UpdateParams struct {
 	clerk.APIParams
-	Status *string `json:"status,omitempty"`
 }
 
 type ListParams struct {
 	clerk.APIParams
-	InstanceID *string `json:"-"`
 }
 
 type Client struct {
