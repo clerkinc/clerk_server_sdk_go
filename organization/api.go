@@ -5,7 +5,7 @@ package organization
 import (
 	"context"
 
-	"github.com/clerk/clerk-sdk-go/v2"
+	"github.com/clerk/clerk-sdk-go/v3"
 )
 
 // Create creates a new organization.
@@ -17,6 +17,12 @@ func Create(ctx context.Context, params *CreateParams) (*clerk.Organization, err
 // The organization can be fetched by either the ID or its slug.
 func Get(ctx context.Context, idOrSlug string) (*clerk.Organization, error) {
 	return getClient().Get(ctx, idOrSlug)
+}
+
+// GetWithParams retrieves details for an organization.
+// The organization can be fetched by either the ID or its slug.
+func GetWithParams(ctx context.Context, idOrSlug string, params *GetParams) (*clerk.Organization, error) {
+	return getClient().GetWithParams(ctx, idOrSlug, params)
 }
 
 // Update updates an organization.

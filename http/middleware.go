@@ -9,9 +9,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/clerk/clerk-sdk-go/v2"
-	"github.com/clerk/clerk-sdk-go/v2/jwks"
-	"github.com/clerk/clerk-sdk-go/v2/jwt"
+	"github.com/clerk/clerk-sdk-go/v3"
+	"github.com/clerk/clerk-sdk-go/v3/jwks"
+	"github.com/clerk/clerk-sdk-go/v3/jwt"
 )
 
 // RequireHeaderAuthorization will respond with HTTP 403 Forbidden if
