@@ -356,9 +356,13 @@ type CommerceCustomer struct {
 type CommercePayee struct {
 	APIResource
 
-	ID string `json:"id"`
-	StripeURL string `json:"stripe_url"`
-	StripeID string `json:"stripe_id"`
+	ID 							string 						`json:"id"`
+	GatewayStatus		string						`json:"gateway_status"`
+	GatewayType			string						`json:"gateway_type"`
+	StripeURL 			string 						`json:"stripe_url"`
+	StripeID 				string 						`json:"stripe_id"`
+	CreatedAt       string            `json:"created_at"`
+	UpdatedAt       string            `json:"updated_at"`
 }
 
 
