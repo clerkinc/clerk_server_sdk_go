@@ -8,7 +8,7 @@ import (
 	"github.com/clerk/clerk-sdk-go/v2"
 )
 
-func Create(ctx context.Context, params *clerk.CreateMultipleFeaturesParams) (*clerk.CommerceFeatureList, error) {
+func Create(ctx context.Context, params *clerk.CreateFeatureParams) (*clerk.CommerceFeature, error) {
 	return getClient().Create(ctx, params)
 }
 
