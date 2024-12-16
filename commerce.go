@@ -12,7 +12,7 @@ type CreateProductParams struct {
 	Name            string   `json:"name"`
 	Slug            string   `json:"slug"`
 	Currency        string   `json:"currency"`
-	PayerType       []string `json:"subscriber_type"`
+	PayerType       []string `json:"payer_type"`
 	OwnerEntityType string   `json:"owner_entity_type"`
 }
 
@@ -21,7 +21,7 @@ type UpdateProductParams struct {
 	Name      *string   `json:"name,omitempty"`
 	Slug      *string   `json:"slug,omitempty"`
 	Currency  *string   `json:"currency,omitempty"`
-	PayerType *[]string `json:"subscriber_type,omitempty"`
+	PayerType *[]string `json:"payer_type,omitempty"`
 }
 
 type GetProductByIDParams struct {
@@ -36,7 +36,7 @@ type CommerceProduct struct {
 	Slug            string          `json:"slug"`
 	Currency        string          `json:"currency"`
 	Plans           []*CommercePlan `json:"plans"`
-	PayerType       []string        `json:"subscriber_type"`
+	PayerType       []string        `json:"payer_type"`
 	OwnerEntityType string          `json:"owner_entity_type"`
 	CreatedAt       string          `json:"created_at"`
 	UpdatedAt       string          `json:"updated_at"`
@@ -220,7 +220,7 @@ type CommercePlan struct {
 	Description   string            `json:"description"`
 	Slug          string            `json:"slug"`
 	BillingCycles *int              `json:"billing_cycles,omitempty"`
-	PayerCount    int64             `json:"subscriber_count"`
+	PayerCount    int64             `json:"payer_count"`
 	CreatedAt     string            `json:"created_at"`
 	UpdatedAt     string            `json:"updated_at"`
 	Features      []CommerceFeature `json:"features"`
