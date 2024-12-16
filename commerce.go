@@ -283,6 +283,26 @@ type ListCommerceSubscriptionsResponse struct {
 	PaginatedList[CommerceSubscription]
 }
 
+type CreatePaymentSourceParams struct {
+	APIParams
+	OwnerID    string `json:"owner_id"`
+	Processor  string `json:"processor"`
+	ExternalID string `json:"external_id"`
+}
+
+type CommercePaymentSource struct {
+	APIResource
+	ID         string `json:"id"`
+	OwnerID    string `json:"owner_id"`
+	Processor  string `json:"processor"`
+	ExternalID string `json:"external_id"`
+	GatewayID  string `json:"gateway_id"`
+	CreatedAt  string `json:"created_at"`
+	UpdatedAt  string `json:"updated_at"`
+}
+
+type CommercePaymentSourceList PaginatedList[CommercePaymentSource]
+
 // --- Subscription Types ---
 
 type GetSubscriptionParams struct {
