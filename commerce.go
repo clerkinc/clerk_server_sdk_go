@@ -285,18 +285,23 @@ type ListCommerceSubscriptionsResponse struct {
 
 type CreatePaymentSourceParams struct {
 	APIParams
-	OwnerID    string `json:"owner_id"`
-	Processor  string `json:"processor"`
+	PayerID    string `json:"payer_id"`
+	Gateway    string `json:"gateway"`
+	PayeeID    string `json:"payee_id"`
 	ExternalID string `json:"external_id"`
+	Last4      string `json:"last4"`
+	CardType   string `json:"card_type"`
 }
 
 type CommercePaymentSource struct {
 	APIResource
 	ID         string `json:"id"`
-	OwnerID    string `json:"owner_id"`
-	Processor  string `json:"processor"`
+	PayerID    string `json:"payer_id"`
+	Gateway    string `json:"gateway"`
+	PayeeID    string `json:"payee_id"`
 	ExternalID string `json:"external_id"`
-	GatewayID  string `json:"gateway_id"`
+	CardType   string `json:"card_type"`
+	LastFour   string `json:"last4"`
 	CreatedAt  string `json:"created_at"`
 	UpdatedAt  string `json:"updated_at"`
 }

@@ -15,9 +15,9 @@ const (
 
 type CreateParams struct {
 	clerk.APIParams
-	OwnerID   string `json:"owner_id"`
-	GatewayID string `json:"gateway_id"`
-	Processor string `json:"processor"`
+	PayerID string `json:"payer_id"`
+	PayeeID string `json:"payee_id"`
+	Gateway string `json:"gateway"`
 }
 
 type UpdateParams struct {
