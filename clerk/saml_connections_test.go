@@ -97,6 +97,7 @@ func TestSAMLConnectionsService_Create(t *testing.T) {
 		IdpEntityID:    stringToPtr("test-idp-entity-id"),
 		IdpSsoURL:      stringToPtr("https://example.com/saml/sso"),
 		IdpCertificate: stringToPtr(dummySAMLConnectionCertificate),
+		OrganizationID: stringToPtr(dummyOrganizationID),
 	}
 
 	got, err := c.SAMLConnections().Create(createParams)
@@ -143,6 +144,7 @@ func TestSAMLConnectionsService_Update(t *testing.T) {
 		},
 		AllowSubdomains:   &expectedAllowSubdomains,
 		AllowIdpInitiated: &expectedAllowIdpInitiated,
+		OrganizationID:    stringToPtr(dummyOrganizationID),
 	}
 
 	got, err := c.SAMLConnections().Update(dummySAMLConnectionID, updateParams)
@@ -186,6 +188,8 @@ func TestSAMLConnectionsService_Delete(t *testing.T) {
 const (
 	dummySAMLConnectionID = "samlc_2P17P4pXsx8MmunM1pkeYeimDDd"
 
+	dummyOrganizationID = "org_2P17P4pXsx8MmunM1pkeYeimDDd"
+
 	dummySAMLConnectionJSON = `
 {
     "object": "saml_connection",
@@ -210,7 +214,8 @@ const (
 	"user_count": 3,
 	"sync_user_attributes": true,
 	"allow_subdomains": false,
-	"allow_idp_initiated": false
+	"allow_idp_initiated": false,
+    "organization_id": " ` + dummyOrganizationID + ` "
 }`
 
 	dummySAMLConnectionUpdatedJSON = `
@@ -238,7 +243,8 @@ const (
 	"user_count": 3,
 	"sync_user_attributes": false,
 	"allow_subdomains": true,
-	"allow_idp_initiated": true
+	"allow_idp_initiated": true,
+    "organization_id": " ` + dummyOrganizationID + ` "
 }`
 
 	dummySAMLConnectionCertificate = `MIIDBzCCAe+gAwIBAgIJAPr/Mrlc8EGhMA0GCSqGSIb3DQEBBQUAMBoxGDAWBgNVBAMMD3d3dy5leGFtcGxlLmNvbTAeFw0xNTEyMjgxOTE5NDVaFw0yNTEyMjUxOTE5NDVaMBoxGDAWBgNVBAMMD3d3dy5leGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBANDoWzLos4LWxTn8Gyu2lEbl4WcelUbgLN5zYm4ron8Ahs+rvcsu2zkdD/s6jdGJI8WqJKhYK2u61ygnXgAZqC6ggtFPnBpizcDzjgND2g+aucSoUODHt67f0fQuAmupN/zp5MZysJ6IHLJnYLNpfJYk96lRz9ODnO1Mpqtr9PWxm+pz7nzq5F0vRepkgpcRxv6ufQBjlrFytccyEVdXrvFtkjXcnhVVNSR4kHuOOMS6D7pebSJ1mrCmshbD5SX1jXPBKFPAjozYX6PxqLxUx1Y4faFEf4MBBVcInyB4oURNB2s59hEEi2jq9izNE7EbEK6BY5sEhoCPl9m32zE6ljkCAwEAAaNQME4wHQYDVR0OBBYEFB9ZklC1Ork2zl56zg08ei7ss/+iMB8GA1UdIwQYMBaAFB9ZklC1Ork2zl56zg08ei7ss/+iMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEFBQADggEBAAVoTSQ5pAirw8OR9FZ1bRSuTDhY9uxzl/OL7lUmsv2cMNeCB3BRZqm3mFt+cwN8GsH6f3uvNONIhgFpTGN5LEcXQz89zJEzB+qaHqmbFpHQl/sx2B8ezNgT/882H2IH00dXESEfy/+1gHg2pxjGnhRBN6el/gSaDiySIMKbilDrffuvxiCfbpPN0NRRiPJhd2ay9KuL/RxQRl1gl9cHaWiouWWba1bSBb2ZPhv2rPMUsFo98ntkGCObDX6Y1SpkqmoTbrsbGFsTG2DLxnvr4GdN1BSr0Uu/KV3adj47WkXVPeMYQti/bQmxQB8tRFhrw80qakTLUzreO96WzlBBMtY=`

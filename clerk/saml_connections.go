@@ -27,6 +27,7 @@ type SAMLConnection struct {
 	SyncUserAttributes bool                           `json:"sync_user_attributes"`
 	AllowSubdomains    bool                           `json:"allow_subdomains"`
 	AllowIdpInitiated  bool                           `json:"allow_idp_initiated"`
+	OrganizationID     *string                        `json:"organization_id"`
 	CreatedAt          int64                          `json:"created_at"`
 	UpdatedAt          int64                          `json:"updated_at"`
 }
@@ -99,6 +100,7 @@ type CreateSAMLConnectionParams struct {
 	IdpCertificate   *string                         `json:"idp_certificate,omitempty"`
 	IdpMetadataURL   *string                         `json:"idp_metadata_url,omitempty"`
 	IdpMetadata      *string                         `json:"idp_metadata,omitempty"`
+	OrganizationID   *string                         `json:"organization_id,omitempty"`
 	AttributeMapping *SAMLConnectionAttributeMapping `json:"attribute_mapping,omitempty"`
 }
 
@@ -124,6 +126,7 @@ type UpdateSAMLConnectionParams struct {
 	IdpCertificate     *string                         `json:"idp_certificate,omitempty"`
 	IdpMetadataURL     *string                         `json:"idp_metadata_url,omitempty"`
 	IdpMetadata        *string                         `json:"idp_metadata,omitempty"`
+	OrganizationID     *string                         `json:"organization_id,omitempty"`
 	AttributeMapping   *SAMLConnectionAttributeMapping `json:"attribute_mapping,omitempty"`
 	Active             *bool                           `json:"active,omitempty"`
 	SyncUserAttributes *bool                           `json:"sync_user_attributes,omitempty"`
