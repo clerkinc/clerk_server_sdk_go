@@ -19,7 +19,28 @@ there is no guarantee.
 
 ## 2.x.x to 3.x.x
 
-TODO
+### Fetching Organizations
+
+We have simplified fetching specific organizations to be done via single function:
+
+```diff
+import (
++	"github.com/clerk/clerk-sdk-go/v2/organization"
+-	"github.com/clerk/clerk-sdk-go/v3/organization"
+)
+
+type Service {
+    orgsClient  *organization.Client
+}
+
+func (s *Service) fetchOrgExample(idOrSlug string, includeMembersCount bool) {
+-   s.orgsClient.Get(ctx, idOrSlug)
++   s.orgsClient.Get(ctx, idOrSlug, &GetParams{})
+
+-   s.orgsClient.GetWithParams(ctx, idOrSlug, &organization.GetParams{IncludeMembersCount: &includeMembersCount})
++   s.orgsClient.Get(ctx, idOrSlug, &organization.GetParams{IncludeMembersCount: &includeMembersCount})
+}
+```
 
 ## 1.x.x to 2.x.x
 
