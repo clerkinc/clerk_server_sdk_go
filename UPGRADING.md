@@ -97,8 +97,7 @@ The `v2` version of the library introduces helper functions to generate pointers
 - `clerk.Bool`
 - `clerk.Int64`
 - `clerk.JSONRawMessage`
-
-Using the helpers above, here's how you can invoke an API operation with a `*Params` struct.
+  Using the helpers above, here's how you can invoke an API operation with a `*Params` struct.
 
 ```go
 domain.Create(context.Background(), &domain.CreateParams{
