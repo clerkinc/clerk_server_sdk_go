@@ -180,6 +180,7 @@ type CreatePlanParams struct {
 	Amount      int64  `json:"amount"`
 	IsRecurring bool   `json:"is_recurring"`
 	IsProrated  bool   `json:"is_prorated"`
+	IsFree			bool	 `json:"is_free"`
 	Period      string `json:"period"`
 	Interval    int    `json:"interval"`
 	AvatarURL   string `json:"avatar_url"`
@@ -195,6 +196,7 @@ type UpdatePlanParams struct {
 	IsRecurring *bool   `json:"is_recurring,omitempty"`
 	Description *string `json:"description,omitempty"`
 	IsProrated  *bool   `json:"is_prorated,omitempty"`
+	IsFree			bool	 	`json:"is_free"`
 	Period      *string `json:"period,omitempty"`
 	Interval    *int    `json:"interval,omitempty"`
 	AvatarURL   *string `json:"avatar_url,omitempty"`
@@ -213,6 +215,8 @@ type CommercePlan struct {
 	Amount        int64             `json:"amount"`
 	IsRecurring   bool              `json:"is_recurring"`
 	IsProrated    bool              `json:"is_prorated"`
+	IsFree				bool	 						`json:"is_free"`
+	IsDefault			bool							`json:"is_default"`
 	Period        string            `json:"period"`
 	Interval      int               `json:"interval"`
 	AvatarURL     string            `json:"avatar_url"`
