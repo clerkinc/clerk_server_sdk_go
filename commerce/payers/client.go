@@ -15,8 +15,9 @@ const (
 
 type CreateParams struct {
 	clerk.APIParams
-	Name  string `json:"name" form:"name"`
-	Email string `json:"email" form:"email"`
+	Name   string `json:"name" form:"name"`
+	Email  string `json:"email" form:"email"`
+	UserID string `json:"user_id" form:"user_id"`
 }
 
 type UpdateParams struct {
