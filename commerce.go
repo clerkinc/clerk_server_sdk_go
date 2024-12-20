@@ -38,8 +38,8 @@ type CommerceProduct struct {
 	Plans           []*CommercePlan `json:"plans"`
 	PayerType       []string        `json:"payer_type"`
 	OwnerEntityType string          `json:"owner_entity_type"`
-	CreatedAt       string          `json:"created_at"`
-	UpdatedAt       string          `json:"updated_at"`
+	CreatedAt       int64           `json:"created_at"`
+	UpdatedAt       int64           `json:"updated_at"`
 }
 
 type CommerceProductWithPlans struct {
@@ -67,8 +67,8 @@ type CommercePlanFeature struct {
 	ID        string `json:"id"`
 	PlanID    string `json:"plan_id"`
 	FeatureID string `json:"feature_id"`
-	CreatedAt string `json:"created_at"`
-	UpdatedAt string `json:"updated_at"`
+	CreatedAt int64  `json:"created_at"`
+	UpdatedAt int64  `json:"updated_at"`
 }
 
 type CommercePlanFeatureList PaginatedList[CommercePlanFeature]
@@ -92,8 +92,8 @@ type CommerceFeature struct {
 	HasTrialUnits   bool                         `json:"has_trial_units"`
 	TrialUnits      int                          `json:"trial_units"`
 	UnitPricing     []CommerceFeatureUnitPricing `json:"unit_pricing"`
-	CreatedAt       string                       `json:"created_at"`
-	UpdatedAt       string                       `json:"updated_at"`
+	CreatedAt       int64                        `json:"created_at"`
+	UpdatedAt       int64                        `json:"updated_at"`
 }
 
 type CommerceFeatureList PaginatedList[CommerceFeature]
@@ -221,8 +221,8 @@ type CommercePlan struct {
 	Slug          string            `json:"slug"`
 	BillingCycles *int              `json:"billing_cycles,omitempty"`
 	PayerCount    int64             `json:"payer_count"`
-	CreatedAt     string            `json:"created_at"`
-	UpdatedAt     string            `json:"updated_at"`
+	CreatedAt     int64             `json:"created_at"`
+	UpdatedAt     int64             `json:"updated_at"`
 	Features      []CommerceFeature `json:"features"`
 }
 
@@ -274,8 +274,8 @@ type CommerceSubscription struct {
 	Status          string           `json:"status"`
 	LastInvoice     *CommerceInvoice `json:"last_invoice,omitempty"`
 	NextInvoice     *CommerceInvoice `json:"next_invoice,omitempty"`
-	CreatedAt       string           `json:"created_at"` // ISO 8601 format
-	UpdatedAt       string           `json:"updated_at"` // ISO 8601 format
+	CreatedAt       int64            `json:"created_at"` // ISO 8601 format
+	UpdatedAt       int64            `json:"updated_at"` // ISO 8601 format
 }
 
 type ListCommerceSubscriptionsResponse struct {
@@ -302,8 +302,8 @@ type CommercePaymentSource struct {
 	ExternalID string `json:"external_id"`
 	CardType   string `json:"card_type"`
 	LastFour   string `json:"last4"`
-	CreatedAt  string `json:"created_at"`
-	UpdatedAt  string `json:"updated_at"`
+	CreatedAt  int64  `json:"created_at"`
+	UpdatedAt  int64  `json:"updated_at"`
 }
 
 type CommercePaymentSourceList PaginatedList[CommercePaymentSource]
@@ -385,8 +385,8 @@ type CommercePayee struct {
 	GatewayType   string `json:"gateway_type"`
 	StripeURL     string `json:"stripe_url"`
 	StripeID      string `json:"stripe_id"`
-	CreatedAt     string `json:"created_at"`
-	UpdatedAt     string `json:"updated_at"`
+	CreatedAt     int64  `json:"created_at"`
+	UpdatedAt     int64  `json:"updated_at"`
 }
 
 type CommercePayeeList PaginatedList[CommercePayee]
