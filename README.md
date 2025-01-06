@@ -10,16 +10,21 @@
 
 # Clerk Go SDK
 
+> [!CAUTION]
+> You're looking at v3 of the Clerk Go SDK. This version is currently unstable!
+> Do not use this version if you see this message. We will make an announcement
+> when this version is ready. Please use [v2](https://github.com/clerk/clerk-sdk-go/tree/v2).
+
 The official [Clerk](https://clerk.com) Go client library for accessing the [Clerk Backend API](https://clerk.com/docs/reference/backend-api).
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/clerk/clerk-sdk-go/v2.svg)](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2)
+[![Go Reference](https://pkg.go.dev/badge/github.com/clerk/clerk-sdk-go/v3.svg)](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3)
 [![chat on Discord](https://img.shields.io/discord/856971667393609759.svg?logo=discord)](https://discord.com/invite/b5rXHjAg7A)
 [![documentation](https://img.shields.io/badge/documentation-clerk-green.svg)](https://clerk.com/docs)
 [![twitter](https://img.shields.io/twitter/follow/ClerkDev?style=social)](https://twitter.com/intent/follow?screen_name=ClerkDev)
 
-### Migrating from `v1`?
+### Migrating from `v2`?
 
-Check out the [upgrade guide](UPGRADING.md#1-x-x-to-2-x-x).
+Check out the [upgrade guide](UPGRADING.md#2-x-x-to-3-x-x).
 
 ## Requirements
 
@@ -31,19 +36,19 @@ If you are using Go Modules and have a `go.mod` file in your project's root, you
 
 ```go
 import (
-    "github.com/clerk/clerk-sdk-go/v2"
+    "github.com/clerk/clerk-sdk-go/v3"
 )
 ```
 
 Alternatively, you can `go get` the package explicitly.
 
 ```
-go get -u github.com/clerk/clerk-sdk-go/v2
+go get -u github.com/clerk/clerk-sdk-go/v3
 ```
 
 ## Usage
 
-For details on how to use this module, see the [Go Documentation](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2).
+For details on how to use this module, see the [Go Documentation](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3).
 
 The library has a resource-based structure which follows the way the [Clerk Backend API](https://clerk.com/docs/reference/backend-api) resources are organized.
 Each API supports specific operations, like Create or List. While operations for each resource vary, a similar pattern is applied throughout the library.
@@ -61,10 +66,11 @@ Let's see both approaches in detail.
 ### Usage without a client
 
 If you only use one API key, you can import the packages required for the APIs you need to interact with and call functions for API operations.
+
 ```go
 import (
-    "github.com/clerk/clerk-sdk-go/v2"
-    "github.com/clerk/clerk-sdk-go/v2/$resource$"
+    "github.com/clerk/clerk-sdk-go/v3"
+    "github.com/clerk/clerk-sdk-go/v3/$resource$"
 )
 
 // Each operation requires a context.Context as the first argument.
@@ -100,8 +106,8 @@ This way you can create as many clients as needed, each with their own API key.
 
 ```go
 import (
-    "github.com/clerk/clerk-sdk-go/v2"
-    "github.com/clerk/clerk-sdk-go/v2/$resource$"
+    "github.com/clerk/clerk-sdk-go/v3"
+    "github.com/clerk/clerk-sdk-go/v3/$resource$"
 )
 
 // Each operation requires a context.Context as the first argument.
@@ -135,10 +141,10 @@ Here's an example of how the above operations would look like for specific APIs.
 
 ```go
 import (
-    "github.com/clerk/clerk-sdk-go/v2"
-    "github.com/clerk/clerk-sdk-go/v2/organization"
-    "github.com/clerk/clerk-sdk-go/v2/organizationmembership"
-    "github.com/clerk/clerk-sdk-go/v2/user"
+    "github.com/clerk/clerk-sdk-go/v3"
+    "github.com/clerk/clerk-sdk-go/v3/organization"
+    "github.com/clerk/clerk-sdk-go/v3/organizationmembership"
+    "github.com/clerk/clerk-sdk-go/v3/user"
 )
 
 func main() {
@@ -178,7 +184,7 @@ Each resource that is returned by an API operation has a `Response` field which
 contains information about the response that was sent from the Clerk Backend API.
 
 The `Response` contains fields like the the raw HTTP response's headers,
-the status and the raw response body. See the [APIResponse](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2#APIResponse)
+the status and the raw response body. See the [APIResponse](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3#APIResponse)
 documentation for available fields and methods.
 
 ```go
@@ -196,7 +202,7 @@ and a trace ID that can be used for debugging.
 
 The `APIErrorResponse` is an `APIResource`. You can [access the API response](#accessing-api-responses) for errors as well.
 
-See the [APIErrorResponse](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2#APIErrorResponse) documentation for available fields and methods.
+See the [APIErrorResponse](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3#APIErrorResponse) documentation for available fields and methods.
 
 ```go
 _, err := user.List(context.Background(), &user.ListParams{})
@@ -212,13 +218,13 @@ if apiErr, ok := err.(*clerk.APIErrorResponse); ok {
 The library provides two functions that can be used for adding authentication with Clerk to HTTP handlers.
 
 Both middleware functions support header based authentication with a bearer token. The token is parsed, verified and
-its claims are extracted as [SessionClaims](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2#SessionClaims).
+its claims are extracted as [SessionClaims](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3#SessionClaims).
 
 The claims will then be made available in the `http.Request.Context` for the next handler in the chain. The library
-provides a helper for accessing the claims from the context, [SessionClaimsFromContext](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2#SessionClaimsFromContext).
+provides a helper for accessing the claims from the context, [SessionClaimsFromContext](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3#SessionClaimsFromContext).
 
-The two middleware functions are [WithHeaderAuthorization](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2/http#WithHeaderAuthorization)
-and [RequireHeaderAuthorization](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2/http#RequireHeaderAuthorization).
+The two middleware functions are [WithHeaderAuthorization](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3/http#WithHeaderAuthorization)
+and [RequireHeaderAuthorization](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3/http#RequireHeaderAuthorization).
 Their difference is that the `RequireHeaderAuthorization` calls `WithHeaderAuthorization` under the hood, but responds
 with HTTP 403 Forbidden if it fails to detect valid session claims.
 
@@ -229,8 +235,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/clerk/clerk-sdk-go/v2"
-	clerkhttp "github.com/clerk/clerk-sdk-go/v2/http"
+	"github.com/clerk/clerk-sdk-go/v3"
+	clerkhttp "github.com/clerk/clerk-sdk-go/v3/http"
 )
 
 func main() {
@@ -266,7 +272,7 @@ Both `WithHeaderAuthorization` and `RequireHeaderAuthorization` can be
 customized. They accept various options as functional arguments.
 
 For a comprehensive list of available options check the
-[AuthorizationParams](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2/http#AuthorizationParams) documentation.
+[AuthorizationParams](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3/http#AuthorizationParams) documentation.
 
 ### Testing
 
@@ -315,7 +321,7 @@ func TestWithMockServer(t *testing.T) {
 
 3. Implement your own Backend
 
-You can implement your own [Backend](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2#Backend) and set it as the package's default Backend.
+You can implement your own [Backend](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3#Backend) and set it as the package's default Backend.
 
 ```go
 func TestWithCustomBackend(t *testing.T) {
@@ -374,7 +380,7 @@ func TestWithMockServer(t *testing.T) {
 
 3. Implement your own Backend
 
-You can implement your own [Backend](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v2#Backend) and set it as the API client's Backend.
+You can implement your own [Backend](https://pkg.go.dev/github.com/clerk/clerk-sdk-go/v3#Backend) and set it as the API client's Backend.
 
 ```go
 func TestWithCustomBackend(t *testing.T) {
