@@ -17,6 +17,10 @@ the current `MAJOR` version of `clerk-sdk-go` is actively supported.
 Bug fixes and security updates may be added to previous versions, but
 there is no guarantee.
 
+## 2.x.x to 3.x.x
+
+TODO
+
 ## 1.x.x to 2.x.x
 
 The `v2` version of the Clerk Go SDK is a complete rewrite and introduces
@@ -88,6 +92,7 @@ available in the server, and a slice with the operation results.
 ### Every field in API operation parameters is a pointer
 
 The `v2` version of the library introduces helper functions to generate pointers from various type values. These are:
+
 - `clerk.String`
 - `clerk.Bool`
 - `clerk.Int64`
@@ -101,6 +106,7 @@ domain.Create(context.Background(), &domain.CreateParams{
     IsSatellite: clerk.Bool(true),
 })
 ```
+
 You can explicitly pass zero values with `clerk.String("")` or `clerk.Int64(0)`.
 
 ### The `clerk.ErrorResponse` type changed to `clerk.APIErrorResponse`
