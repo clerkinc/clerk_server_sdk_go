@@ -76,13 +76,13 @@ func TestOrganizationClientGet(t *testing.T) {
 		},
 	}
 	client := NewClient(config)
-	organization, err := client.Get(context.Background(), id)
+	organization, err := client.Get(context.Background(), id, &GetParams{})
 	require.NoError(t, err)
 	require.Equal(t, id, organization.ID)
 	require.Equal(t, name, organization.Name)
 }
 
-func TestOrganizationClientGetWithParams(t *testing.T) {
+func TestOrganizationClientGet_WithParams(t *testing.T) {
 	t.Parallel()
 	id := "org_123"
 	name := "Acme Inc"
@@ -99,7 +99,7 @@ func TestOrganizationClientGetWithParams(t *testing.T) {
 		},
 	}
 	client := NewClient(config)
-	organization, err := client.GetWithParams(context.Background(), id, &GetParams{
+	organization, err := client.Get(context.Background(), id, &GetParams{
 		IncludeMembersCount: clerk.Bool(true),
 	})
 	require.NoError(t, err)
