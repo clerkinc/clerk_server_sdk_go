@@ -283,7 +283,7 @@ set the package's `Backend` with a custom configuration.
 func TestWithCustomTransport(t *testing.T) {
     clerk.SetBackend(clerk.NewBackend(&clerk.BackendConfig{
         HTTPClient: &http.Client{
-            Transport: mockRoundTripper,
+            Transport: &mockRoundTripper{},
         },
     }))
 }
@@ -342,7 +342,7 @@ pass a custom http.Client to your clients.
 func TestWithCustomTransport(t *testing.T) {
     config := &clerk.ClientConfig{}
     config.HTTPClient = &http.Client{
-        Transport: mockRoundTripper,
+        Transport: &mockRoundTripper{},
     }
     client := user.NewClient(config)
 }
