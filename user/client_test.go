@@ -513,27 +513,6 @@ func TestUserClientDeleteWeb3Wallet(t *testing.T) {
 	require.Equal(t, web3WalletIdentificationID, web3Wallet.ID)
 }
 
-func TestUserClientCreateTOTP(t *testing.T) {
-	t.Parallel()
-	userID := "user_123"
-	config := &clerk.ClientConfig{}
-	config.HTTPClient = &http.Client{
-		Transport: &clerktest.RoundTripper{
-			T:      t,
-			Method: http.MethodPost,
-			Out:    json.RawMessage(`{"backup_codes":[],"created_at":1725548779338,"id":"totp_id","object":"totp","secret":"secret","updated_at":1725548779338,"uri":"otpauth://totp/","verified":false}`),
-			Path:   fmt.Sprintf("/v1/users/%s/totp", userID),
-		},
-	}
-	client := NewClient(config)
-	totp, err := client.CreateTOTP(context.Background(), userID)
-	require.NoError(t, err)
-	require.Empty(t, totp.ID)
-	require.Empty(t, totp.Secret)
-	require.Empty(t, totp.URI)
-	require.Equal(t, totp.Object, "totp")
-}
-
 func TestUserClientDeleteTOTP(t *testing.T) {
 	t.Parallel()
 	userID := "user_123"

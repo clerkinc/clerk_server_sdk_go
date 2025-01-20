@@ -532,16 +532,6 @@ func (c *Client) DeleteWeb3Wallet(ctx context.Context, userID, identificationID 
 	return resource, err
 }
 
-// Deprecated: CreateTOTP creates a TOTP (Time-based One-Time Password) for the user.
-// The endpoint used for this method has been removed, we kept the method for backwards compatibility,
-// and now it's a noop action.
-func (c *Client) CreateTOTP(ctx context.Context, userID string) (*clerk.TOTP, error) {
-	resource := &clerk.TOTP{
-		Object: "totp",
-	}
-	return resource, nil
-}
-
 // DeleteTOTP deletes all the TOTPs from a given user.
 func (c *Client) DeleteTOTP(ctx context.Context, userID string) (*MultifactorAuthentication, error) {
 	path, err := clerk.JoinPath(path, userID, "/totp")
