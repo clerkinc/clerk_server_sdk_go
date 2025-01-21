@@ -51,7 +51,7 @@ type CreateParams struct {
 	BackupCodes               *[]string        `json:"backup_codes,omitempty"`
 	DeleteSelfEnabled         *bool            `json:"delete_self_enabled,omitempty"`
 	CreateOrganizationEnabled *bool            `json:"create_organization_enabled,omitempty"`
-	CreateOrganizationsLimit  *int64             `json:"create_organizations_limit,omitempty"`
+	CreateOrganizationsLimit  *int             `json:"create_organizations_limit,omitempty"`
 	// Specified in RFC3339 format
 	LegalAcceptedAt *string `json:"legal_accepted_at,omitempty"`
 	SkipLegalChecks *bool   `json:"skip_legal_checks,omitempty"`
