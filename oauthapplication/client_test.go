@@ -36,9 +36,9 @@ func TestOAuthApplicationClientCreate(t *testing.T) {
 
 	params := &CreateParams{
 		Name:        name,
-		CallbackURL: callbackURL,
-		Scopes:      scopes,
-		Public:      public,
+		CallbackURL: clerk.String(callbackURL),
+		Scopes:      clerk.String(scopes),
+		Public:      clerk.Bool(public),
 	}
 	oauthApp, err := client.Create(context.Background(), params)
 	require.NoError(t, err)
