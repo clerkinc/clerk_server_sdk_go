@@ -526,9 +526,9 @@ func TestUserClientCreateTOTP(t *testing.T) {
 	client := NewClient(config)
 	totp, err := client.CreateTOTP(context.Background(), userID)
 	require.NoError(t, err)
-	require.NotNil(t, totp.ID)
-	require.NotNil(t, totp.Secret)
-	require.NotNil(t, totp.URI)
+	require.Empty(t, totp.ID)
+	require.Empty(t, totp.Secret)
+	require.Empty(t, totp.URI)
 	require.Equal(t, totp.Object, "totp")
 }
 
