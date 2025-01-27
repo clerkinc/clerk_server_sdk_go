@@ -108,13 +108,14 @@ func TestOAuthApplicationClientUpdate(t *testing.T) {
 	id := "app_123"
 	updatedName := "Updated Application"
 	callbackURL := "https://updated.callback.url"
+	public := true
 
 	config := &clerk.ClientConfig{}
 	config.HTTPClient = &http.Client{
 		Transport: &clerktest.RoundTripper{
 			T:      t,
-			In:     json.RawMessage(fmt.Sprintf(`{"name":"%s","callback_url":"%s"}`, updatedName, callbackURL)),
-			Out:    json.RawMessage(fmt.Sprintf(`{"id":"%s","name":"%s","callback_url":"%s"}`, id, updatedName, callbackURL)),
+			In:     json.RawMessage(fmt.Sprintf(`{"name":"%s","callback_url":"%s", "public":%t}`, updatedName, callbackURL, public)),
+			Out:    json.RawMessage(fmt.Sprintf(`{"id":"%s","name":"%s","callback_url":"%s","public":%t}`, id, updatedName, callbackURL, public)),
 			Method: http.MethodPatch,
 			Path:   fmt.Sprintf("/v1/oauth_applications/%s", id),
 		},
@@ -124,6 +125,7 @@ func TestOAuthApplicationClientUpdate(t *testing.T) {
 	params := &UpdateParams{
 		Name:        clerk.String(updatedName),
 		CallbackURL: clerk.String(callbackURL),
+		Public:      clerk.Bool(public),
 	}
 	oauthApp, err := client.Update(context.Background(), id, params)
 	require.NoError(t, err)

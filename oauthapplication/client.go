@@ -75,6 +75,7 @@ type UpdateParams struct {
 	Name        *string `json:"name,omitempty"`
 	CallbackURL *string `json:"callback_url,omitempty"`
 	Scopes      *string `json:"scopes,omitempty"`
+	Public      *bool   `json:"public,omitempty"`
 }
 
 // Update updates an existing OAuth application.
