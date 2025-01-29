@@ -44,6 +44,7 @@ func TestOAuthApplicationClientCreate(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, id, oauthApp.ID)
 	require.Equal(t, name, oauthApp.Name)
+	//nolint:staticcheck
 	require.Equal(t, callbackURL, oauthApp.CallbackURL)
 	require.Equal(t, scopes, oauthApp.Scopes)
 	require.Equal(t, public, oauthApp.Public)
@@ -98,6 +99,7 @@ func TestOAuthApplicationClientGet(t *testing.T) {
 	require.NoError(t, err)
 	require.Equal(t, id, oauthApp.ID)
 	require.Equal(t, name, oauthApp.Name)
+	//nolint:staticcheck
 	require.Equal(t, callbackURL, oauthApp.CallbackURL)
 	require.Equal(t, scopes, oauthApp.Scopes)
 	require.Equal(t, public, oauthApp.Public)
@@ -107,15 +109,16 @@ func TestOAuthApplicationClientUpdate(t *testing.T) {
 	t.Parallel()
 	id := "app_123"
 	updatedName := "Updated Application"
-	callbackURL := "https://updated.callback.url"
+	callbackURL1 := "https://updated.callback.url"
+	callbackURL2 := "https://new.callback.url"
 	public := true
 
 	config := &clerk.ClientConfig{}
 	config.HTTPClient = &http.Client{
 		Transport: &clerktest.RoundTripper{
 			T:      t,
-			In:     json.RawMessage(fmt.Sprintf(`{"name":"%s","callback_url":"%s", "public":%t}`, updatedName, callbackURL, public)),
-			Out:    json.RawMessage(fmt.Sprintf(`{"id":"%s","name":"%s","callback_url":"%s","public":%t}`, id, updatedName, callbackURL, public)),
+			In:     json.RawMessage(fmt.Sprintf(`{"name":"%s","redirect_uris":["%s","%s"], "public":%t}`, updatedName, callbackURL1, callbackURL2, public)),
+			Out:    json.RawMessage(fmt.Sprintf(`{"id":"%s","name":"%s","redirect_uris":["%s","%s"],"callback_url":"%s","public":%t}`, id, updatedName, callbackURL1, callbackURL2, callbackURL1, public)),
 			Method: http.MethodPatch,
 			Path:   fmt.Sprintf("/v1/oauth_applications/%s", id),
 		},
@@ -123,15 +126,17 @@ func TestOAuthApplicationClientUpdate(t *testing.T) {
 
 	client := NewClient(config)
 	params := &UpdateParams{
-		Name:        clerk.String(updatedName),
-		CallbackURL: clerk.String(callbackURL),
-		Public:      clerk.Bool(public),
+		Name:         clerk.String(updatedName),
+		RedirectURIs: []string{callbackURL1, callbackURL2},
+		Public:       clerk.Bool(public),
 	}
 	oauthApp, err := client.Update(context.Background(), id, params)
 	require.NoError(t, err)
 	require.Equal(t, id, oauthApp.ID)
 	require.Equal(t, updatedName, oauthApp.Name)
-	require.Equal(t, callbackURL, oauthApp.CallbackURL)
+	//nolint:staticcheck
+	require.Equal(t, callbackURL1, oauthApp.CallbackURL)
+	require.Equal(t, []string{callbackURL1, callbackURL2}, oauthApp.RedirectURIs)
 }
 
 func TestOrganizationClientUpdate_Error(t *testing.T) {
