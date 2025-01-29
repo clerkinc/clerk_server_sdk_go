@@ -58,6 +58,7 @@ func TestUserClientList_Request(t *testing.T) {
 				"created_at_after":      []string{"1730333164378"},
 				"last_active_at_before": []string{"1730333164378"},
 				"last_active_at_after":  []string{"1730333164378"},
+				"banned":                []string{"false"},
 			},
 		},
 	}
@@ -75,6 +76,7 @@ func TestUserClientList_Request(t *testing.T) {
 	params.CreatedAtAfter = clerk.Int64(1730333164378)
 	params.LastActiveAtBefore = clerk.Int64(1730333164378)
 	params.LastActiveAtAfter = clerk.Int64(1730333164378)
+	params.Banned = clerk.Bool(false)
 	_, err := client.List(context.Background(), params)
 	require.NoError(t, err)
 }
