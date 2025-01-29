@@ -55,10 +55,13 @@ func (c *Client) List(ctx context.Context, params *ListParams) (*clerk.OAuthAppl
 
 type CreateParams struct {
 	clerk.APIParams
-	Name        string  `json:"name"`
+	Name         string   `json:"name"`
+	RedirectURIs []string `json:"redirect_uris,omitempty"`
+	Scopes       *string  `json:"scopes,omitempty"`
+	Public       *bool    `json:"public,omitempty"`
+
+	// Deprecated: Use RedirectURIs instead
 	CallbackURL *string `json:"callback_url,omitempty"`
-	Scopes      *string `json:"scopes,omitempty"`
-	Public      *bool   `json:"public,omitempty"`
 }
 
 // Create creates a new OAuth application with the given parameters.
@@ -72,10 +75,13 @@ func (c *Client) Create(ctx context.Context, params *CreateParams) (*clerk.OAuth
 
 type UpdateParams struct {
 	clerk.APIParams
-	Name        *string `json:"name,omitempty"`
+	Name         *string  `json:"name,omitempty"`
+	RedirectURIs []string `json:"redirect_uris,omitempty"`
+	Scopes       *string  `json:"scopes,omitempty"`
+	Public       *bool    `json:"public,omitempty"`
+
+	// Deprecated: Use RedirectURIs instead
 	CallbackURL *string `json:"callback_url,omitempty"`
-	Scopes      *string `json:"scopes,omitempty"`
-	Public      *bool   `json:"public,omitempty"`
 }
 
 // Update updates an existing OAuth application.
