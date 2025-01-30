@@ -34,6 +34,7 @@ type CreateParams struct {
 	PublicMetadata  *json.RawMessage `json:"public_metadata,omitempty"`
 	PrivateMetadata *json.RawMessage `json:"private_metadata,omitempty"`
 	OrganizationID  string           `json:"-"`
+	ExpiresInDays   *int64           `json:"expires_in_days,omitempty"`
 }
 
 // Create creates and sends an invitation to join an organization.
