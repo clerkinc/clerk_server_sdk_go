@@ -108,6 +108,7 @@ type UpdateOrganizationSettingsParams struct {
 	DomainsEnabled         *bool     `json:"domains_enabled,omitempty"`
 	DomainsEnrollmentModes *[]string `json:"domains_enrollment_modes,omitempty"`
 	DomainsDefaultRoleID   *string   `json:"domains_default_role_id,omitempty"`
+	DisableInvitations     bool      `json:"disable_invitations"`
 }
 
 // UpdateOrganizationSettings updates the organization settings of the instance.

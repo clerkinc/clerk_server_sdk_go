@@ -22,4 +22,5 @@ type OrganizationSettings struct {
 	DomainsEnabled         bool     `json:"domains_enabled"`
 	DomainsEnrollmentModes []string `json:"domains_enrollment_modes"`
 	DomainsDefaultRole     string   `json:"domains_default_role"`
+	DisableInvitations     bool     `json:"disable_invitations"`
 }
