@@ -168,6 +168,12 @@ func TestOrganizationMembershipClientList(t *testing.T) {
 	id := "orgmem_123"
 	organizationID := "org_123"
 	userID := "user_123"
+
+	emailAddressQuery := "some-email-address"
+	usernameQuery := "some-username"
+	phoneNumberQuery := "555"
+	nameQuery := "some-name"
+
 	config := &clerk.ClientConfig{}
 	config.HTTPClient = &http.Client{
 		Transport: &clerktest.RoundTripper{
@@ -186,18 +192,35 @@ func TestOrganizationMembershipClientList(t *testing.T) {
 			Method: http.MethodGet,
 			Path:   "/v1/organizations/" + organizationID + "/memberships",
 			Query: &url.Values{
-				"limit":    []string{"1"},
-				"offset":   []string{"2"},
-				"role":     []string{"admin", "member"},
-				"order_by": []string{"-created_at"},
+				"limit":                 []string{"1"},
+				"offset":                []string{"2"},
+				"role":                  []string{"admin", "member"},
+				"order_by":              []string{"-created_at"},
+				"email_address_query":   []string{emailAddressQuery},
+				"username_query":        []string{usernameQuery},
+				"phone_number_query":    []string{phoneNumberQuery},
+				"name_query":            []string{nameQuery},
+				"created_at_before":     []string{"1730333164378"},
+				"created_at_after":      []string{"1730333164378"},
+				"last_active_at_before": []string{"1730333164378"},
+				"last_active_at_after":  []string{"1730333164378"},
 			},
 		},
 	}
 	client := NewClient(config)
+
 	params := &ListParams{
-		OrganizationID: organizationID,
-		OrderBy:        clerk.String("-created_at"),
-		Roles:          []string{"admin", "member"},
+		OrganizationID:     organizationID,
+		OrderBy:            clerk.String("-created_at"),
+		Roles:              []string{"admin", "member"},
+		EmailAddressQuery:  &emailAddressQuery,
+		UsernameQuery:      &usernameQuery,
+		PhoneNumberQuery:   &phoneNumberQuery,
+		NameQuery:          &nameQuery,
+		CreatedAtBefore:    clerk.Int64(1730333164378),
+		CreatedAtAfter:     clerk.Int64(1730333164378),
+		LastActiveAtBefore: clerk.Int64(1730333164378),
+		LastActiveAtAfter:  clerk.Int64(1730333164378),
 	}
 	params.Limit = clerk.Int64(1)
 	params.Offset = clerk.Int64(2)
