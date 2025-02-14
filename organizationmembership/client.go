@@ -5,6 +5,7 @@ import (
 	"context"
 	"net/http"
 	"net/url"
+	"strconv"
 
 	"github.com/clerk/clerk-sdk-go/v2"
 )
@@ -85,15 +86,23 @@ func (c *Client) Delete(ctx context.Context, params *DeleteParams) (*clerk.Organ
 type ListParams struct {
 	clerk.APIParams
 	clerk.ListParams
-	OrderBy        *string  `json:"order_by,omitempty"`
-	Query          *string  `json:"query,omitempty"`
-	Roles          []string `json:"role,omitempty"`
-	UserIDs        []string `json:"user_id,omitempty"`
-	EmailAddresses []string `json:"email_address,omitempty"`
-	PhoneNumbers   []string `json:"phone_number,omitempty"`
-	Usernames      []string `json:"username,omitempty"`
-	Web3Wallets    []string `json:"web3_wallet,omitempty"`
-	OrganizationID string   `json:"-"`
+	OrderBy            *string  `json:"order_by,omitempty"`
+	Query              *string  `json:"query,omitempty"`
+	EmailAddressQuery  *string  `json:"email_address_query,omitempty"`
+	PhoneNumberQuery   *string  `json:"phone_number_query,omitempty"`
+	UsernameQuery      *string  `json:"username_query,omitempty"`
+	NameQuery          *string  `json:"name_query,omitempty"`
+	Roles              []string `json:"role,omitempty"`
+	UserIDs            []string `json:"user_id,omitempty"`
+	EmailAddresses     []string `json:"email_address,omitempty"`
+	PhoneNumbers       []string `json:"phone_number,omitempty"`
+	Usernames          []string `json:"username,omitempty"`
+	Web3Wallets        []string `json:"web3_wallet,omitempty"`
+	CreatedAtBefore    *int64   `json:"created_at_before,omitempty"`
+	CreatedAtAfter     *int64   `json:"created_at_after,omitempty"`
+	LastActiveAtBefore *int64   `json:"last_active_at_before,omitempty"`
+	LastActiveAtAfter  *int64   `json:"last_active_at_after,omitempty"`
+	OrganizationID     string   `json:"-"`
 }
 
 // ToQuery returns the parameters as url.Values so they can be used
@@ -105,6 +114,18 @@ func (params *ListParams) ToQuery() url.Values {
 	}
 	if params.Query != nil {
 		q.Set("query", *params.Query)
+	}
+	if params.EmailAddressQuery != nil {
+		q.Add("email_address_query", *params.EmailAddressQuery)
+	}
+	if params.PhoneNumberQuery != nil {
+		q.Add("phone_number_query", *params.PhoneNumberQuery)
+	}
+	if params.UsernameQuery != nil {
+		q.Add("username_query", *params.UsernameQuery)
+	}
+	if params.NameQuery != nil {
+		q.Add("name_query", *params.NameQuery)
 	}
 	if params.Roles != nil {
 		q["role"] = params.Roles
@@ -123,6 +144,18 @@ func (params *ListParams) ToQuery() url.Values {
 	}
 	if params.Web3Wallets != nil {
 		q["web3_wallet"] = params.Web3Wallets
+	}
+	if params.CreatedAtBefore != nil {
+		q.Add("created_at_before", strconv.FormatInt(*params.CreatedAtBefore, 10))
+	}
+	if params.CreatedAtAfter != nil {
+		q.Add("created_at_after", strconv.FormatInt(*params.CreatedAtAfter, 10))
+	}
+	if params.LastActiveAtBefore != nil {
+		q.Add("last_active_at_before", strconv.FormatInt(*params.LastActiveAtBefore, 10))
+	}
+	if params.LastActiveAtAfter != nil {
+		q.Add("last_active_at_after", strconv.FormatInt(*params.LastActiveAtAfter, 10))
 	}
 	return q
 }
